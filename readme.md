@@ -6,7 +6,7 @@
 
 A marketplace of [Agent Skills](https://agentskills.io/specification) for application development. It gathers practical, reusable skills that teach an AI assistant how to build software well, packaged so you install them with a command instead of copying files.
 
-The collection is built to grow. Each theme ships as its own plugin. The first is `clean-code`.
+The collection is built to grow. Each theme ships as its own plugin. Two are available today: `clean-code` and `code-review`.
 
 ## Install
 
@@ -22,6 +22,7 @@ The first command registers the marketplace, the second installs a plugin and it
 | Plugin | Skills | Focus |
 |---|---|---|
 | `clean-code` | `frontend-development`, `backend-development`, `core-development` | Stack-aware clean-code practices with progressive, token-lean loading |
+| `code-review` | `review-changes` | Source-agnostic first-pass code review, reported as Conventional Comments |
 
 More plugins will land here over time.
 
@@ -45,6 +46,20 @@ Frontend and backend defer to the core for anything cross-cutting. Nothing is du
 
 Measured on install, about 330 tokens sit always-on: the three short skill descriptions. Router bodies and reference files load only when a skill fires and the task needs them. A React task pulls the React reference, plus accessibility and testing when relevant. Angular, Vue, and the entire backend stay on disk, unread.
 
+## code-review
+
+One skill, `review-changes`. A first-pass review of a change set, run across parallel dimensions and reported as [Conventional Comments](https://conventionalcomments.org/). It never approves or merges.
+
+- **Sources:** a local working-tree diff, a branch against its base, or a GitHub or GitLab pull or merge request.
+- **Dimensions:** correctness, security (with a dependency audit), architecture, tests, performance, readability, documentation, and an optional runtime pass. The set scales to the size of the change.
+- **Output:** a local report by default, or inline comments when the target is a pull or merge request and the platform CLI is available.
+
+When `clean-code` is installed, the review borrows its stack references as the standard to check against.
+
+```
+/plugin install code-review@ai-skills
+```
+
 ## Layout
 
 ```
@@ -55,6 +70,10 @@ clean-code/
     frontend-development/  SKILL.md + references/
     backend-development/   SKILL.md + references/
     core-development/       SKILL.md + references/
+code-review/
+  .claude-plugin/plugin.json
+  skills/
+    review-changes/        SKILL.md + references/
 ```
 
 ## Manual install
