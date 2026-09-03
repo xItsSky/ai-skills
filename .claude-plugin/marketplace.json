@@ -1,5 +1,6 @@
 {
   "name": "ai-skills",
+  "description": "A marketplace of Agent Skill plugins for writing clean, idiomatic code across stacks.",
   "owner": {
     "name": "xItsSky"
   },
@@ -10,6 +11,10 @@
       "displayName": "Clean Code",
       "description": "Stack-aware clean-code best practices. Detects the project's framework and version, then loads only the matching guidance across frontend, backend, and shared core standards.",
       "version": "0.1.0",
+      "author": {
+        "name": "xItsSky"
+      },
+      "license": "MIT",
       "keywords": ["clean-code", "best-practices", "frontend", "backend", "testing"],
       "category": "development"
     }

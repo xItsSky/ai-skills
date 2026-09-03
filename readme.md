@@ -1,18 +1,33 @@
 # AI Skills
 
-A Claude Code plugin marketplace of [Agent Skills](https://agentskills.io/specification) that teach an AI assistant to write clean, idiomatic code and load only the guidance a task needs.
+[![Validate](https://github.com/xItsSky/ai-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/xItsSky/ai-skills/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-6C5CE7)](https://docs.claude.com/en/docs/claude-code)
 
-The repo hosts a marketplace that can hold several plugins. It ships one today, `clean-code`, and more can be added later without restructuring.
+A marketplace of [Agent Skills](https://agentskills.io/specification) for application development. It gathers practical, reusable skills that teach an AI assistant how to build software well, packaged so you install them with a command instead of copying files.
 
-## Plugins
+The collection is built to grow. Each theme ships as its own plugin. The first is `clean-code`.
 
-| Plugin | What it does |
-|---|---|
-| `clean-code` | Stack-aware clean-code best practices for frontend, backend, and shared engineering standards |
+## Install
 
-## The clean-code plugin
+```
+/plugin marketplace add xItsSky/ai-skills
+/plugin install clean-code@ai-skills
+```
 
-Three skills. Each is a `SKILL.md` router plus a set of `references/*.md` files. The router detects the project's stack and version, then reads only the matching reference, so the assistant never carries guidance for frameworks the project does not use.
+The first command registers the marketplace, the second installs a plugin and its skills. Update later with `/plugin marketplace update ai-skills`. Using another tool or prefer a manual setup? See [Manual install](#manual-install).
+
+## What's inside
+
+| Plugin | Skills | Focus |
+|---|---|---|
+| `clean-code` | `frontend-development`, `backend-development`, `core-development` | Stack-aware clean-code practices with progressive, token-lean loading |
+
+More plugins will land here over time.
+
+## clean-code
+
+Three skills. Each is a `SKILL.md` router plus a set of `references/*.md` files. The router detects the project's stack and version, then reads only the reference that matches, so the assistant never carries guidance for frameworks the project does not use.
 
 | Skill | Use for | Covers |
 |---|---|---|
@@ -20,28 +35,29 @@ Three skills. Each is a `SKILL.md` router plus a set of `references/*.md` files.
 | `backend-development` | APIs, services, data access, auth | NestJS, Node.js, Java, Spring Boot, API design, database, auth/security, integration testing |
 | `core-development` | The baseline shared by both | TypeScript, JavaScript, clean code, documentation, testing, git/gitflow, security, versioning |
 
-Frontend and backend reference the core for anything cross-cutting. Nothing is duplicated across skills.
+Frontend and backend defer to the core for anything cross-cutting. Nothing is duplicated across skills.
 
-### How loading works
+### How the loading stays lean
 
 1. The router reads `package.json`, `pom.xml`, or `build.gradle` to detect the stack and its resolved version.
 2. It reads the one framework reference that matches, and applies only the rules that fit the detected version.
-3. It pulls in cross-cutting references (accessibility, testing, security, and so on) only when the task calls for them.
+3. It pulls in cross-cutting references (accessibility, testing, security, and the like) only when the task calls for them.
 
-A React task loads the React reference and, if relevant, accessibility and testing. Angular, Vue, and every backend file stay on disk, unread.
+Measured on install, about 330 tokens sit always-on: the three short skill descriptions. Router bodies and reference files load only when a skill fires and the task needs them. A React task pulls the React reference, plus accessibility and testing when relevant. Angular, Vue, and the entire backend stay on disk, unread.
 
-## Install
-
-### Claude Code (recommended)
+## Layout
 
 ```
-/plugin marketplace add xItsSky/ai-skills
-/plugin install clean-code@ai-skills
+.claude-plugin/marketplace.json      Marketplace catalog
+clean-code/
+  .claude-plugin/plugin.json         Plugin manifest
+  skills/
+    frontend-development/  SKILL.md + references/
+    backend-development/   SKILL.md + references/
+    core-development/       SKILL.md + references/
 ```
 
-The first command registers the marketplace, the second installs the plugin and its three skills. Update later with `/plugin marketplace update ai-skills`.
-
-### Other tools (manual)
+## Manual install
 
 The skills are plain Markdown and work with any tool that supports Agent Skills. Symlink them into the tool's skills directory:
 
@@ -53,20 +69,14 @@ ln -s "$PWD/clean-code/skills/core-development"     ~/.claude/skills/core-develo
 
 Codex uses `~/.agents/skills/`. Copilot CLI and Gemini CLI auto-discover installed skills.
 
-## Layout
-
-```
-.claude-plugin/marketplace.json      Marketplace catalog
-clean-code/
-  .claude-plugin/plugin.json         Plugin manifest
-  skills/
-    frontend-development/  SKILL.md + references/*.md
-    backend-development/   SKILL.md + references/*.md
-    core-development/      SKILL.md + references/*.md
-```
-
 ## Extending
 
-**Add a stack to an existing skill:** drop a new `references/<stack>.md` into the right skill, matching the format of the existing references, and add one row to the detection table in that skill's `SKILL.md`.
+**Add a stack to a skill:** drop a new `references/<stack>.md` into the right skill and add a row to the detection table in its `SKILL.md`.
 
-**Add a new plugin to the marketplace:** create a sibling folder with its own `.claude-plugin/plugin.json` and `skills/`, then add one entry to the `plugins` array in `.claude-plugin/marketplace.json`.
+**Add a new plugin:** create a sibling folder with its own `.claude-plugin/plugin.json` and `skills/`, then add an entry to the `plugins` array in `.claude-plugin/marketplace.json`.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide and the house style.
+
+## License
+
+[MIT](LICENSE).

@@ -1,6 +1,6 @@
 ---
 name: core-development
-description: Use when writing or reviewing code in any stack: the cross-cutting engineering baseline shared by frontend and backend work. Covers TypeScript and JavaScript conventions, the unit-testing contract, git and gitflow, clean-code principles, and a security baseline. Referenced by frontend-development and backend-development.
+description: Use when writing or reviewing code in any stack. It captures the cross-cutting engineering baseline shared by frontend and backend work. Covers TypeScript and JavaScript conventions, the unit-testing contract, git and gitflow, clean-code principles, and a security baseline. Referenced by frontend-development and backend-development.
 ---
 
 # Core Development
