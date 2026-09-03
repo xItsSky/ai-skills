@@ -1,6 +1,6 @@
 {
   "name": "ai-skills",
-  "description": "A marketplace of Agent Skill plugins for writing clean, idiomatic code across stacks.",
+  "description": "A marketplace of Agent Skill plugins for application development: clean code, code review, and epic planning.",
   "owner": {
     "name": "xItsSky"
   },
@@ -30,6 +30,19 @@
       "license": "MIT",
       "keywords": ["code-review", "review", "diff", "pull-request", "conventional-comments"],
       "category": "development"
+    },
+    {
+      "name": "epic-planning",
+      "source": "./epic-planning",
+      "displayName": "Epic Planning",
+      "description": "Turn a feature idea into a complete epic and its stories through a challenge-driven conversation, then create them with their relations and metadata on GitHub, Jira, or Trello. Never creates anything without approval.",
+      "version": "0.1.0",
+      "author": {
+        "name": "xItsSky"
+      },
+      "license": "MIT",
+      "keywords": ["epic", "user-stories", "planning", "backlog", "github", "jira", "trello"],
+      "category": "productivity"
     }
   ]
 }
