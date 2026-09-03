@@ -1,0 +1,10 @@
+{
+  "name": "code-review",
+  "displayName": "Code Review",
+  "version": "0.1.0",
+  "author": {
+    "name": "xItsSky"
+  },
+  "license": "MIT",
+  "description": "Source-agnostic first-pass code review. Reviews a local working-tree diff, a branch against its base, or a GitHub/GitLab pull or merge request across parallel dimensions, and reports findings as Conventional Comments. Never approves or merges."
+}
