@@ -27,9 +27,15 @@ Before writing code, inspect the project:
 | When you are | Also read |
 |---|---|
 | Designing or changing an endpoint | `references/api-design.md` |
-| Reading or writing persisted data | `references/database.md` |
+| Reading or writing persisted data (any store) | `references/database.md` |
+| Using PostgreSQL, MySQL, or another SQL database | `references/database.md` + `references/sql.md` |
+| Using MongoDB | `references/database.md` + `references/mongodb.md` |
+| Using Elasticsearch | `references/database.md` + `references/elasticsearch.md` |
+| Using Redis | `references/database.md` + `references/redis.md` |
 | Handling identity or access control | `references/auth-security.md` |
 | Writing or updating tests | `references/integration-testing.md` + core `references/testing-philosophy.md` |
+
+Detect the data store from dependencies: `pg`, `mysql`, `typeorm`, or `prisma` for SQL; `mongoose` or `mongodb` for MongoDB; `@elastic/elasticsearch` for Elasticsearch; `redis` or `ioredis` for Redis. Read `database.md` for the general rules, plus the engine reference that matches.
 
 ## Step 3: Apply the shared baseline
 
