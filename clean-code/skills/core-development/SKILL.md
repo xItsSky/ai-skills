@@ -16,8 +16,11 @@ Standards that hold regardless of framework. The `frontend-development` and `bac
 | Writing or reviewing any unit test | `references/testing-philosophy.md` |
 | Branching, committing, or opening a PR | `references/git-gitflow.md` |
 | Structuring code or naming things | `references/clean-code.md` |
+| Designing layers, boundaries, DI, or error handling | `references/architecture.md` |
 | Writing doc comments or documenting a public API | `references/code-documentation.md` |
 | Checking a framework version, EOL status, or a migration | `references/versioning-and-migration.md` |
+| Working in an NX monorepo (`nx.json` present) | `references/nx.md` |
+| Authoring a custom NX generator or executor | `references/nx-generators.md`, `references/nx-executors.md` |
 | Handling input, secrets, or trust boundaries | `references/security-baseline.md` |
 | Adding or upgrading a dependency | `references/security-baseline.md` |
 
