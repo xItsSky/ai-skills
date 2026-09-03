@@ -6,7 +6,7 @@
 
 A marketplace of [Agent Skills](https://agentskills.io/specification) for application development. It gathers practical, reusable skills that teach an AI assistant how to build software well, packaged so you install them with a command instead of copying files.
 
-The collection is built to grow. Each theme ships as its own plugin. Four are available today: `clean-code`, `code-review`, `epic-planning`, and `devops`.
+The collection is built to grow. Each theme ships as its own plugin. Five are available today: `clean-code`, `code-review`, `epic-planning`, `devops`, and `issue-delivery`.
 
 ## Install
 
@@ -25,6 +25,7 @@ The first command registers the marketplace, the second installs a plugin and it
 | `code-review` | `review-changes` | Source-agnostic first-pass code review, reported as Conventional Comments |
 | `epic-planning` | `plan-epic` | Feature idea to a complete epic and its stories on GitHub, Jira, or Trello |
 | `devops` | `deployment` | Kubernetes and OpenShift deployment best practices, platform-detected |
+| `issue-delivery` | `deliver-issue` | Take an issue to an open pull request on GitHub, GitLab, or Jira |
 
 More plugins will land here over time.
 
@@ -87,6 +88,20 @@ One skill, `deployment`. Production best practices for shipping to Kubernetes an
 /plugin install devops@ai-skills
 ```
 
+## issue-delivery
+
+One skill, `deliver-issue`. It takes an issue from the tracker to an open pull request, following the project's own standards. It owns the issue lifecycle and delegates the rest.
+
+- **Flow:** fetch and check eligibility, assign and branch, analyse and plan (with your go), implement, test, open the PR, offer a self-review, and update the board.
+- **Trackers:** GitHub, GitLab, and Jira. On Jira the issue lifecycle stays in Jira while the code and PR live on the linked git host.
+- **Harmonises with the others:** git and coding standards and dependency vetting come from `clean-code`, and the optional self-review runs `code-review`.
+
+It never merges, and it never codes without an approved plan.
+
+```
+/plugin install issue-delivery@ai-skills
+```
+
 ## Layout
 
 ```
@@ -109,6 +124,10 @@ devops/
   .claude-plugin/plugin.json
   skills/
     deployment/            SKILL.md + references/
+issue-delivery/
+  .claude-plugin/plugin.json
+  skills/
+    deliver-issue/         SKILL.md + references/ (+ platforms/)
 ```
 
 ## Manual install
