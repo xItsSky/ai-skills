@@ -33,7 +33,7 @@ Before writing code, inspect the project:
 
 ## Step 3: Apply the shared baseline
 
-For TypeScript rules, the testing contract, git workflow, and security, follow the `core-development` skill.
+For TypeScript rules, the testing contract, git workflow, and security, follow the `core-development` skill. In an NX monorepo (`nx.json` present), also read core `references/nx.md`. For layering and error-handling design, see core `references/architecture.md`.
 
 ## Non-negotiables
 
