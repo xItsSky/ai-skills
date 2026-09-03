@@ -1,6 +1,6 @@
 {
   "name": "ai-skills",
-  "description": "A marketplace of Agent Skill plugins for application development: clean code, code review, and epic planning.",
+  "description": "A marketplace of Agent Skill plugins for application development: clean code, code review, epic planning, and devops.",
   "owner": {
     "name": "xItsSky"
   },
@@ -43,6 +43,19 @@
       "license": "MIT",
       "keywords": ["epic", "user-stories", "planning", "backlog", "github", "jira", "trello"],
       "category": "productivity"
+    },
+    {
+      "name": "devops",
+      "source": "./devops",
+      "displayName": "DevOps",
+      "description": "Production best practices for deploying to Kubernetes and OpenShift. Detects the platform, then loads only the matching manifest guidance: resources, probes, security context, rollout, RBAC, and high availability.",
+      "version": "0.1.0",
+      "author": {
+        "name": "xItsSky"
+      },
+      "license": "MIT",
+      "keywords": ["devops", "kubernetes", "openshift", "deployment", "manifests", "rbac"],
+      "category": "development"
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "name": "devops",
+  "displayName": "DevOps",
+  "version": "0.1.0",
+  "author": {
+    "name": "xItsSky"
+  },
+  "license": "MIT",
+  "description": "Production best practices for deploying to Kubernetes and OpenShift. Detects the platform, then loads only the matching manifest guidance: resource requests and limits, probes, security context, rollout strategy, RBAC, secrets, and high availability."
+}
