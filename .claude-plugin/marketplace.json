@@ -1,0 +1,17 @@
+{
+  "name": "ai-skills",
+  "owner": {
+    "name": "xItsSky"
+  },
+  "plugins": [
+    {
+      "name": "clean-code",
+      "source": "./clean-code",
+      "displayName": "Clean Code",
+      "description": "Stack-aware clean-code best practices. Detects the project's framework and version, then loads only the matching guidance across frontend, backend, and shared core standards.",
+      "version": "0.1.0",
+      "keywords": ["clean-code", "best-practices", "frontend", "backend", "testing"],
+      "category": "development"
+    }
+  ]
+}
