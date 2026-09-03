@@ -5,5 +5,6 @@
   "author": {
     "name": "xItsSky"
   },
+  "license": "MIT",
   "description": "Stack-aware clean-code best practices. Detects the project's framework and version, then loads only the matching guidance: frontend (Angular, React, Next.js, Vue, accessibility, testing), backend (NestJS, Node.js, Java, Spring Boot, APIs, data, auth), and shared core standards (TypeScript, testing, git/gitflow, security, documentation, versioning)."
 }
