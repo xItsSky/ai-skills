@@ -21,6 +21,8 @@ Standards that hold regardless of framework. The `frontend-development` and `bac
 | Checking a framework version, EOL status, or a migration | `references/versioning-and-migration.md` |
 | Working in an NX monorepo (`nx.json` present) | `references/nx.md` |
 | Authoring a custom NX generator or executor | `references/nx-generators.md`, `references/nx-executors.md` |
+| Writing a Dockerfile or image (`Dockerfile` present) | `references/docker.md` |
+| Writing GitHub Actions CI workflows (`.github/workflows` present) | `references/github-actions.md` |
 | Handling input, secrets, or trust boundaries | `references/security-baseline.md` |
 | Adding or upgrading a dependency | `references/security-baseline.md` |
 

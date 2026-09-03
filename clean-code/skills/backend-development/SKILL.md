@@ -1,6 +1,6 @@
 ---
 name: backend-development
-description: Use when writing, reviewing, or refactoring backend or server code (HTTP APIs, controllers, services, data access, background jobs, authentication, or authorization) in NestJS, Node.js, Java, or Spring Boot. Also use for backend testing, database access, and API design.
+description: Use when writing, reviewing, or refactoring backend or server code (HTTP APIs, controllers, services, data access, background jobs, authentication, or authorization) in NestJS, Node.js, Java, Spring Boot, or Python. Also use for backend testing, database access, and API design.
 ---
 
 # Backend Development
@@ -21,6 +21,7 @@ Before writing code, inspect the project:
 | `spring-boot-starter*` in `pom.xml`/`build.gradle` | Spring Boot | `references/spring-boot.md` |
 | `pom.xml`/`build.gradle`, no Spring Boot | Java | `references/java.md` |
 | `express`/`fastify`/`koa`, no NestJS | Node.js | `references/nodejs.md` |
+| `requirements.txt`, `pyproject.toml`, or `.py` files | Python | `references/python.md` |
 
 ## Step 2: Add cross-cutting references as the task requires
 
@@ -39,7 +40,7 @@ Detect the data store from dependencies: `pg`, `mysql`, `typeorm`, or `prisma` f
 
 ## Step 3: Apply the shared baseline
 
-For TypeScript rules, the testing contract, git workflow, and security, follow the `core-development` skill. In an NX monorepo (`nx.json` present), also read core `references/nx.md`. For layering and error-handling design, see core `references/architecture.md`.
+For TypeScript rules, the testing contract, git workflow, and security, follow the `core-development` skill. In an NX monorepo (`nx.json` present), also read core `references/nx.md`. For layering and error-handling design, see core `references/architecture.md`. If a `Dockerfile` or a `.github/workflows/` directory is present, read core `references/docker.md` or `references/github-actions.md`.
 
 ## Non-negotiables
 

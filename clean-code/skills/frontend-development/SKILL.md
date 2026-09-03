@@ -37,7 +37,7 @@ Then read the resolved framework version from the lockfile, not the caret range 
 
 ## Step 3: Apply the shared baseline
 
-For TypeScript rules, the testing contract, git workflow, and security, follow the `core-development` skill. Next.js Server Actions and Route Handlers are backend surface: for those, also read the `backend-development` skill (`api-design.md`, `auth-security.md`). In an NX monorepo (`nx.json` present), also read core `references/nx.md`. For layering and error-handling design, see core `references/architecture.md`.
+For TypeScript rules, the testing contract, git workflow, and security, follow the `core-development` skill. Next.js Server Actions and Route Handlers are backend surface: for those, also read the `backend-development` skill (`api-design.md`, `auth-security.md`). In an NX monorepo (`nx.json` present), also read core `references/nx.md`. For layering and error-handling design, see core `references/architecture.md`. If a `Dockerfile` or a `.github/workflows/` directory is present, read core `references/docker.md` or `references/github-actions.md`.
 
 ## Non-negotiables
 
