@@ -1,0 +1,10 @@
+{
+  "name": "issue-delivery",
+  "displayName": "Issue Delivery",
+  "version": "0.1.0",
+  "author": {
+    "name": "xItsSky"
+  },
+  "license": "MIT",
+  "description": "Take an issue from a tracker to an open pull request. Fetches and validates the issue, branches, analyses, implements to the project's standards, tests, opens the PR, and updates the board on GitHub, GitLab, or Jira. Delegates coding, git, and review to the other skills. Never merges."
+}
