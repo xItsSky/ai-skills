@@ -36,8 +36,8 @@ Three skills. Each is a `SKILL.md` router plus a set of `references/*.md` files.
 | Skill | Use for | Covers |
 |---|---|---|
 | `frontend-development` | UI, components, styling, client state, a11y | Angular, React, Next.js, Vue, accessibility, CSS, component testing, client performance |
-| `backend-development` | APIs, services, data access, auth | NestJS, Node.js, Java, Spring Boot, API design, databases (SQL, MongoDB, Elasticsearch, Redis), auth/security, integration testing |
-| `core-development` | The baseline shared by both | TypeScript, JavaScript, clean code, architecture, NX, documentation, testing, git/gitflow, security, versioning |
+| `backend-development` | APIs, services, data access, auth | NestJS, Node.js, Java, Spring Boot, Python, API design, databases (SQL, MongoDB, Elasticsearch, Redis), auth/security, integration testing |
+| `core-development` | The baseline shared by both | TypeScript, JavaScript, clean code, architecture, NX, Docker, GitHub Actions, documentation, testing, git/gitflow, security, versioning |
 
 Frontend and backend defer to the core for anything cross-cutting. Nothing is duplicated across skills.
 
