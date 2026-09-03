@@ -1,6 +1,6 @@
 {
   "name": "ai-skills",
-  "description": "A marketplace of Agent Skill plugins for application development: clean code, code review, epic planning, and devops.",
+  "description": "A marketplace of Agent Skill plugins for application development: clean code, code review, epic planning, devops, and issue delivery.",
   "owner": {
     "name": "xItsSky"
   },
@@ -55,6 +55,19 @@
       },
       "license": "MIT",
       "keywords": ["devops", "kubernetes", "openshift", "deployment", "manifests", "rbac"],
+      "category": "development"
+    },
+    {
+      "name": "issue-delivery",
+      "source": "./issue-delivery",
+      "displayName": "Issue Delivery",
+      "description": "Take an issue from a tracker to an open pull request: fetch, branch, analyse, implement to the project's standards, test, open the PR, and update the board on GitHub, GitLab, or Jira. Delegates coding, git, and review to the other skills. Never merges.",
+      "version": "0.1.0",
+      "author": {
+        "name": "xItsSky"
+      },
+      "license": "MIT",
+      "keywords": ["issue", "workflow", "pull-request", "delivery", "github", "gitlab", "jira"],
       "category": "development"
     }
   ]
