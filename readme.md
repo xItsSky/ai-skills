@@ -6,7 +6,7 @@
 
 A marketplace of [Agent Skills](https://agentskills.io/specification) for application development. It gathers practical, reusable skills that teach an AI assistant how to build software well, packaged so you install them with a command instead of copying files.
 
-The collection is built to grow. Each theme ships as its own plugin. Two are available today: `clean-code` and `code-review`.
+The collection is built to grow. Each theme ships as its own plugin. Three are available today: `clean-code`, `code-review`, and `epic-planning`.
 
 ## Install
 
@@ -23,6 +23,7 @@ The first command registers the marketplace, the second installs a plugin and it
 |---|---|---|
 | `clean-code` | `frontend-development`, `backend-development`, `core-development` | Stack-aware clean-code practices with progressive, token-lean loading |
 | `code-review` | `review-changes` | Source-agnostic first-pass code review, reported as Conventional Comments |
+| `epic-planning` | `plan-epic` | Feature idea to a complete epic and its stories on GitHub, Jira, or Trello |
 
 More plugins will land here over time.
 
@@ -60,6 +61,20 @@ When `clean-code` is installed, the review borrows its stack references as the s
 /plugin install code-review@ai-skills
 ```
 
+## epic-planning
+
+One skill, `plan-epic`. It turns a feature idea into a complete epic and its stories, then creates them on your tracker. The conversation is demanding by design: it challenges the idea until the business rules and edge cases are pinned down.
+
+- **Flow:** challenge-driven discovery, a drafted epic with business rules front and centre, stories with their relations and estimates, grooming with or without you, optional sprint placement, and a dry-run preview before anything is created.
+- **Trackers:** GitHub, Jira, Trello. The tracker is taken from a parameter, detected from context, or asked. Only the matching adapter loads.
+- **Relations:** parent/child, needs, depends-on, blocks, and relates-to, mapped to each tracker's native links.
+
+Nothing is created without your approval, and the final call on every choice is yours.
+
+```
+/plugin install epic-planning@ai-skills
+```
+
 ## Layout
 
 ```
@@ -74,6 +89,10 @@ code-review/
   .claude-plugin/plugin.json
   skills/
     review-changes/        SKILL.md + references/
+epic-planning/
+  .claude-plugin/plugin.json
+  skills/
+    plan-epic/             SKILL.md + references/ (+ platforms/)
 ```
 
 ## Manual install
