@@ -17,6 +17,19 @@
       "license": "MIT",
       "keywords": ["clean-code", "best-practices", "frontend", "backend", "testing"],
       "category": "development"
+    },
+    {
+      "name": "code-review",
+      "source": "./code-review",
+      "displayName": "Code Review",
+      "description": "Source-agnostic first-pass code review across parallel dimensions, reported as Conventional Comments. Works on a local diff, a branch, or a GitHub or GitLab pull or merge request. Never approves or merges.",
+      "version": "0.1.0",
+      "author": {
+        "name": "xItsSky"
+      },
+      "license": "MIT",
+      "keywords": ["code-review", "review", "diff", "pull-request", "conventional-comments"],
+      "category": "development"
     }
   ]
 }
