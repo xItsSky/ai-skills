@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # GitHub Actions used by the validation workflow
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore"
+    labels:
+      - "dependencies"
+
+  # Pinned Python tooling for skill validation (.github/requirements-validation.txt)
+  - package-ecosystem: "pip"
+    directory: "/.github"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore"
+    labels:
+      - "dependencies"
