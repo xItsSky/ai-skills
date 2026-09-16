@@ -10,7 +10,7 @@ Understand the issue against the codebase before writing any code. The goal is a
 
 ## Investigate in parallel
 
-For a non-trivial issue, dispatch parallel subagents, each on one facet, then synthesize:
+For a non-trivial issue, use parallel subagents when available, each on one facet. Otherwise investigate the same facets sequentially, then synthesize:
 
 - Current behaviour and where it lives.
 - The change surface: files, modules, data model, API.

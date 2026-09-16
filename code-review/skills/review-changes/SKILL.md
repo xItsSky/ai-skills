@@ -1,6 +1,7 @@
 ---
 name: review-changes
-description: Use when performing a first-pass code review of a change set before a human reviewer. Triggers on "review my changes", "review this diff", "do a code review", "first pass on PR #X", "review MR !X". Reviews a local working-tree diff, a branch against its base, or a GitHub or GitLab pull or merge request. Never approves, merges, or formally requests changes.
+description: >-
+  Use when performing a first-pass code review of a change set before a human reviewer. Triggers on "review my changes", "review this diff", "do a code review", "first pass on PR #X", "review MR !X". Reviews a local working-tree diff, a branch against its base, or a GitHub or GitLab pull or merge request. Never approves, merges, or formally requests changes.
 ---
 
 # Review Changes
@@ -32,7 +33,7 @@ Run the dependency vulnerability audit and pass its results to the security pass
 
 ## Step 4: Review in parallel
 
-Launch one subagent per review dimension, in parallel. Give each the diff, the intent from Step 2, the loaded conventions, and its brief. Scale the set to the change: a one-file fix does not need every dimension.
+When subagents are available, launch one per review dimension, in parallel. Give each the diff, the intent from Step 2, the loaded conventions, and its brief. Scale the set to the change: a one-file fix does not need every dimension. When delegation is unavailable, run the same review passes sequentially and consolidate their findings.
 
 The dimensions and their checklists are in `references/review-dimensions.md`: Correctness, Security, Architecture, Tests, Performance, Readability, Documentation, and an optional Runtime pass.
 

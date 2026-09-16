@@ -23,7 +23,7 @@
       "source": "./code-review",
       "displayName": "Code Review",
       "description": "Source-agnostic first-pass code review across parallel dimensions, reported as Conventional Comments. Works on a local diff, a branch, or a GitHub or GitLab pull or merge request. Never approves or merges.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "xItsSky"
       },
@@ -62,7 +62,7 @@
       "source": "./issue-delivery",
       "displayName": "Issue Delivery",
       "description": "Take an issue from a tracker to an open pull request: fetch, branch, analyse, implement to the project's standards, test, open the PR, and update the board on GitHub, GitLab, or Jira. Delegates coding, git, and review to the other skills. Never merges.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "xItsSky"
       },

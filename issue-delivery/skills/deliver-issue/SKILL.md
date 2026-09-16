@@ -1,6 +1,7 @@
 ---
 name: deliver-issue
-description: Use when taking an issue from a tracker to an open pull request. Triggers on "take issue #X", "implement issue #X", "pick up issue #X", "work on issue #X", "deliver #X". Works with GitHub, GitLab, and Jira. Fetches the issue, branches, analyses, implements to the project's standards, tests, opens the pull request, and updates the board. Never merges.
+description: >-
+  Use when taking an issue from a tracker to an open pull request. Triggers on "take issue #X", "implement issue #X", "pick up issue #X", "work on issue #X", "deliver #X". Works with GitHub, GitLab, and Jira. Fetches the issue, branches, analyses, implements to the project's standards, tests, opens the pull request, and updates the board. Never merges.
 ---
 
 # Deliver Issue
@@ -9,12 +10,16 @@ Take an issue from the tracker to an open pull request, following the project's 
 
 ## Delegation
 
+Install the `clean-code` plugin before starting delivery. It provides `core-development`, `frontend-development`, and `backend-development`. Resolve these skills through the current assistant's installed skill catalog, not a hardcoded cache path. If they are unavailable, report the missing prerequisite before assigning the issue or changing tracker state.
+
+The optional self-review uses `review-changes` from the `code-review` plugin. If it is unavailable, offer to install it or skip that optional step.
+
 Do not restate what these cover; use them:
 
-- Branch naming, commits, and gitflow: the `clean-code` skill (`git-gitflow`).
-- Coding standards for the detected stack, and dependency vetting: the `clean-code` skill.
-- The testing contract: the `clean-code` skill (`testing-philosophy`).
-- Self-review of the diff: the `code-review` skill (`review-changes`).
+- Branch naming, commits, and gitflow: `core-development` (`references/git-gitflow.md`).
+- Coding standards for the detected stack, and dependency vetting: `core-development` and the matching frontend or backend skill.
+- The testing contract: `core-development` (`references/testing-philosophy.md`).
+- Self-review of the diff: `review-changes`.
 
 ## Step 1: Identify the issue and tracker
 
