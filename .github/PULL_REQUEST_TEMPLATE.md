@@ -16,7 +16,8 @@ Closes #
 
 ## Checklist
 
-- [ ] `claude plugin validate .` passes (or the CI validation is green)
+- [ ] Shared catalog validation and regression tests pass
+- [ ] Packaging changes were installation-tested in Claude Code and Codex, or limitations are recorded
 - [ ] New or changed references follow the format of the existing ones (English, no emoji, no em dashes)
 - [ ] Version-specific rules are labelled with the version they apply to
 - [ ] Detection tables updated when a stack was added

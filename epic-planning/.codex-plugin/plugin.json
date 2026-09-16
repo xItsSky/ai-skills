@@ -1,0 +1,21 @@
+{
+  "name": "epic-planning",
+  "version": "0.1.0",
+  "author": {
+    "name": "xItsSky"
+  },
+  "license": "MIT",
+  "description": "Turn a feature idea into a complete epic and its stories on any tracker. Runs a challenge-driven discovery to pin down business rules and edge cases, then creates the epic, stories, relations, metadata, and sprint placement on GitHub, Jira, or Trello after explicit approval. Never creates anything without approval.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Epic Planning",
+    "shortDescription": "Turn a feature idea into a complete epic and its stories on any tracker.",
+    "longDescription": "Turn a feature idea into a complete epic and its stories on any tracker. Runs a challenge-driven discovery to pin down business rules and edge cases, then creates the epic, stories, relations, metadata, and sprint placement on GitHub, Jira, or Trello after explicit approval. Never creates anything without approval.",
+    "developerName": "xItsSky",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Help me plan a feature and its stories."
+    ]
+  }
+}

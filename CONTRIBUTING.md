@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve these skills. The repo is a Claude Code plugin marketplace built from plain Markdown, so most contributions are edits to reference files.
+Thanks for helping improve these skills. The repo is a Claude Code and Codex plugin marketplace built from shared Markdown skills, so most contributions are edits to reference files.
 
 ## Ground rules for reference content
 
@@ -18,23 +18,30 @@ Every `references/*.md` file follows the same shape. Match it.
 
 ## Add a new plugin to the marketplace
 
-1. Create a sibling folder with `.claude-plugin/plugin.json` and a `skills/` directory.
-2. Add one entry to the `plugins` array in `.claude-plugin/marketplace.json`.
+1. Create a sibling folder with `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, and one shared `skills/` directory. Copy the metadata structure from an existing plugin.
+2. Add an entry to `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`. Use the same plugin name and repository-relative source directory in both. Codex entries use a local source object, an installation/authentication policy, and a category.
+3. Keep the version identical in both plugin manifests and the Claude catalog entry. Bump it when shipped plugin content changes so installed caches can pick up the update.
+4. Put `name` and `description` in every skill's YAML frontmatter. Use a folded description (`>-`) when it includes trigger examples containing `#` or `:`.
+
+Resolve reference paths from the installed skill directory, never from a tool-specific cache location. Keep related skills in the same plugin when they depend on sibling references. Document dependencies on other plugins and external tools; a marketplace entry does not install them automatically.
 
 ## Validate before opening a PR
 
-```bash
-claude plugin validate .
-```
-
-Or run the same checks the CI runs, which need no Claude CLI:
+Run the same validation and regression tests as CI (Python 3.12+):
 
 ```bash
-pip install pyyaml
-python .github/scripts/validate_skills.py
+python3 -m venv .venv
+.venv/bin/python -m pip install -r .github/requirements-validation.txt
+.venv/bin/python .github/scripts/validate_skills.py
+.venv/bin/python -m coverage run --source=.github/scripts -m unittest discover -s .github/scripts/tests
+.venv/bin/python -m coverage report --omit='*/tests/*' --fail-under=80
 ```
 
-Both confirm the JSON manifests parse and every `SKILL.md` has valid frontmatter with a `name` and `description`.
+The validator checks both catalogs, matching plugin names and versions, local source paths, shared skill directories, and YAML metadata. Regression tests exercise malformed catalogs, missing files, and descriptions truncated by YAML comments. These checks cover this repository's packaging conventions; they do not replace installation tests or validate every possible upstream manifest field.
+
+With Claude Code installed, also run `claude plugin validate .` and `claude plugin validate <plugin-directory>` for each changed plugin.
+
+Before shipping packaging changes, register the local repository root in separate test configurations for Claude Code and Codex, install all five plugins, and verify that the installed packages contain all seven skills and their references. Start fresh conversations to check discovery and representative prompts when an authenticated runtime is available. Record the CLI versions and any untested runtime behavior in the PR.
 
 ## Git workflow
 

@@ -10,12 +10,48 @@ The collection is built to grow. Each theme ships as its own plugin. Five are av
 
 ## Install
 
+### Claude Code
+
 ```
 /plugin marketplace add xItsSky/ai-skills
 /plugin install clean-code@ai-skills
 ```
 
-The first command registers the marketplace, the second installs a plugin and its skills. Update later with `/plugin marketplace update ai-skills`. Using another tool or prefer a manual setup? See [Manual install](#manual-install).
+The first command registers the marketplace; the second installs a plugin and its skills. Update the catalog with `/plugin marketplace update ai-skills`.
+
+### Codex
+
+Use a Codex CLI with `codex plugin` support. Local marketplace installation was tested with version `0.154.0`:
+
+```bash
+codex plugin marketplace add xItsSky/ai-skills
+codex plugin add clean-code@ai-skills
+codex plugin add code-review@ai-skills
+codex plugin add epic-planning@ai-skills
+codex plugin add devops@ai-skills
+codex plugin add issue-delivery@ai-skills
+```
+
+Install only the plugins you need. `issue-delivery` requires `clean-code`; its optional self-review uses `code-review`. Keep all three skills in the `clean-code` plugin together because they share references.
+
+Check the installation with `codex plugin list --marketplace ai-skills --json`. Start a new Codex conversation to use the installed skills. For example, ask it to review your changes or apply the coding standards for your project.
+
+To update, refresh the catalog and install the desired plugins again:
+
+```bash
+codex plugin marketplace upgrade ai-skills
+codex plugin add clean-code@ai-skills
+```
+
+Repeat the second command for each installed plugin you want to update, then start a new conversation. For a local checkout, register its root with `codex plugin marketplace add /absolute/path/to/ai-skills`.
+
+Both tools load the same `skills/` files. Each has its own catalog and manifest metadata. If your Codex version has no `plugin` command, use [manual installation](#manual-install) or update Codex.
+
+### Runtime prerequisites
+
+Installing a skill does not install or authenticate external tools. Tracker workflows need the corresponding access: `gh` for GitHub, `glab` for GitLab, an available Jira CLI/MCP/API connection, or Trello API credentials. Deployment tasks need the relevant project tools and cluster access when running commands.
+
+Review and issue analysis use subagents when available and perform the same passes sequentially otherwise. Existing approval requirements for tracker changes and implementation still apply.
 
 ## What's inside
 
@@ -102,51 +138,60 @@ It never merges, and it never codes without an approved plan.
 /plugin install issue-delivery@ai-skills
 ```
 
+The per-plugin `/plugin install` examples above are Claude Code commands. In Codex, use `codex plugin add <plugin>@ai-skills`.
+
 ## Layout
 
 ```
-.claude-plugin/marketplace.json      Marketplace catalog
+.claude-plugin/marketplace.json      Claude Code catalog
+.agents/plugins/marketplace.json     Codex catalog
 clean-code/
-  .claude-plugin/plugin.json         Plugin manifest
+  .claude-plugin/plugin.json         Claude Code manifest
+  .codex-plugin/plugin.json          Codex manifest
   skills/
     frontend-development/  SKILL.md + references/
     backend-development/   SKILL.md + references/
     core-development/       SKILL.md + references/
 code-review/
   .claude-plugin/plugin.json
+  .codex-plugin/plugin.json
   skills/
     review-changes/        SKILL.md + references/
 epic-planning/
   .claude-plugin/plugin.json
+  .codex-plugin/plugin.json
   skills/
     plan-epic/             SKILL.md + references/ (+ platforms/)
 devops/
   .claude-plugin/plugin.json
+  .codex-plugin/plugin.json
   skills/
     deployment/            SKILL.md + references/
 issue-delivery/
   .claude-plugin/plugin.json
+  .codex-plugin/plugin.json
   skills/
     deliver-issue/         SKILL.md + references/ (+ platforms/)
 ```
 
 ## Manual install
 
-The skills are plain Markdown and work with any tool that supports Agent Skills. Symlink them into the tool's skills directory:
+The skills are plain Markdown. To install all seven in Codex without marketplace support, run this from a persistent checkout of the repository:
 
 ```bash
-ln -s "$PWD/clean-code/skills/frontend-development" ~/.claude/skills/frontend-development
-ln -s "$PWD/clean-code/skills/backend-development"  ~/.claude/skills/backend-development
-ln -s "$PWD/clean-code/skills/core-development"     ~/.claude/skills/core-development
+mkdir -p ~/.agents/skills
+for skill in "$PWD"/*/skills/*; do
+  ln -s "$skill" ~/.agents/skills/
+done
 ```
 
-Codex uses `~/.agents/skills/`. Copilot CLI and Gemini CLI auto-discover installed skills.
+For Claude Code, use `~/.claude/skills/` instead. The links depend on this checkout remaining at the same location. `ln` refuses to overwrite existing entries; inspect a conflict before replacing anything. Use either marketplace installation or manual links for a given skill to avoid duplicate discovery. Start a new conversation after installing.
 
 ## Extending
 
 **Add a stack to a skill:** drop a new `references/<stack>.md` into the right skill and add a row to the detection table in its `SKILL.md`.
 
-**Add a new plugin:** create a sibling folder with its own `.claude-plugin/plugin.json` and `skills/`, then add an entry to the `plugins` array in `.claude-plugin/marketplace.json`.
+**Add a new plugin:** create a sibling folder with `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, and one shared `skills/` directory. Register it in both marketplace catalogs with the same name and source directory.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide and the house style.
 
