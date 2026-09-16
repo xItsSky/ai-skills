@@ -140,13 +140,17 @@ class ValidationTests(unittest.TestCase):
 
     def test_rejects_unlisted_plugin(self) -> None:
         self.write_json("extra/.claude-plugin/plugin.json", self.manifest)
-        self.assert_invalid("unlisted")
+        self.assert_invalid("missing or found outside")
 
     def test_rejects_skill_outside_registered_plugins(self) -> None:
         orphan = self.root / "forgotten/skills/orphan/SKILL.md"
         orphan.parent.mkdir(parents=True)
         orphan.write_text("---\nname: orphan\ndescription: Forgotten skill\n---\nBody\n")
         self.assert_invalid("unlisted skills")
+
+    def test_accepts_description_at_frontmatter_end(self) -> None:
+        self.skill.write_text("---\nname: example\ndescription: Example\n---")
+        self.assertEqual(self.run_validator().returncode, 0)
 
     def test_rejects_invalid_frontmatter(self) -> None:
         self.skill.write_text("---\nname: [\n---\nBody\n")

@@ -185,7 +185,7 @@ for skill in "$PWD"/*/skills/*; do
 done
 ```
 
-For Claude Code, use `~/.claude/skills/` instead. The links depend on this checkout remaining at the same location. `ln` refuses to overwrite existing entries; inspect a conflict before replacing anything. Use either marketplace installation or manual links for a given skill to avoid duplicate discovery. Start a new conversation after installing.
+For Claude Code, use `~/.claude/skills/` instead. The links depend on this checkout remaining at the same location. `ln` refuses to overwrite existing entries; inspect a conflict before replacing anything. Skill directory names must be unique across plugins because this loop links by basename; if two plugins later use the same skill name, link them explicitly to distinct names or install the plugins through their marketplaces. Use either marketplace installation or manual links for a given skill to avoid duplicate discovery. Start a new conversation after installing.
 
 ## Extending
 

@@ -92,7 +92,8 @@ def validate_skill(path: Path) -> None:
     # embedded in an otherwise unquoted description. Require explicit quoting.
     for key, value in nodes.value:
         if key.value == "description" and value.style is None:
-            line = match[1].splitlines()[value.end_mark.line]
+            lines = match[1].splitlines()
+            line = lines[value.end_mark.line] if value.end_mark.line < len(lines) else ""
             require(not line[value.end_mark.column:].lstrip().startswith("#"),
                     f"{path}: quote or fold description containing an inline '#' comment")
 
@@ -136,7 +137,8 @@ def validate_repository(root: Path) -> int:
     require(claude_plugins == codex_plugins, "catalog source paths must match")
     discovered = {path.parent.parent.resolve() for platform in ("claude", "codex")
                   for path in root.glob(f"*/.{platform}-plugin/plugin.json")}
-    require(discovered == set(claude_plugins.values()), "unlisted plugin manifests found")
+    require(discovered == set(claude_plugins.values()),
+            "plugin manifests are missing or found outside the registered catalog entries")
     skills = []
     for entry in claude["plugins"]:
         skills.extend(validate_plugin(entry["name"], claude_plugins[entry["name"]], entry))

@@ -21,7 +21,7 @@ Every `references/*.md` file follows the same shape. Match it.
 1. Create a sibling folder with `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, and one shared `skills/` directory. Copy the metadata structure from an existing plugin.
 2. Add an entry to `.claude-plugin/marketplace.json` and `.agents/plugins/marketplace.json`. Use the same plugin name and repository-relative source directory in both. Codex entries use a local source object, an installation/authentication policy, and a category.
 3. Keep the version identical in both plugin manifests and the Claude catalog entry. Bump it when shipped plugin content changes so installed caches can pick up the update.
-4. Put `name` and `description` in every skill's YAML frontmatter. Use a folded description (`>-`) when it includes trigger examples containing `#` or `:`.
+4. Put `name` and `description` in every skill's YAML frontmatter. Quote or fold descriptions containing trigger examples with `#`; quote descriptions containing YAML-sensitive punctuation such as `: `.
 
 Resolve reference paths from the installed skill directory, never from a tool-specific cache location. Keep related skills in the same plugin when they depend on sibling references. Document dependencies on other plugins and external tools; a marketplace entry does not install them automatically.
 
