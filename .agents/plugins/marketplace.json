@@ -1,0 +1,68 @@
+{
+  "name": "ai-skills",
+  "interface": {
+    "displayName": "AI Skills"
+  },
+  "plugins": [
+    {
+      "name": "clean-code",
+      "source": {
+        "source": "local",
+        "path": "./clean-code"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "code-review",
+      "source": {
+        "source": "local",
+        "path": "./code-review"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "epic-planning",
+      "source": {
+        "source": "local",
+        "path": "./epic-planning"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "devops",
+      "source": {
+        "source": "local",
+        "path": "./devops"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "issue-delivery",
+      "source": {
+        "source": "local",
+        "path": "./issue-delivery"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
