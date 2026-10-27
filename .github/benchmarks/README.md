@@ -82,6 +82,25 @@ The `num_turns` it reports is the measured counterpart to `unbatched`. The stati
 gate can only model what the instructions permit; this shows what the model
 actually did.
 
+### Why the scenario prompts forbid running anything
+
+Each task ends with an instruction not to install dependencies or run a build,
+lint, or test command. The fixtures declare a test runner but ship no
+`node_modules`, so without that line the model tries to install one, fails, and
+retries. One early run burned 41 turns and 685 seconds on exactly that before
+hitting the turn limit, which swamped the signal the benchmark exists to
+measure.
+
+So these numbers cover skill loading plus code generation, with toolchain
+friction held out. That is the surface the skills control, and the right one for
+an A/B. It is not the cost of a full task in a working repository, where
+installing and running tests is part of the job.
+
+A run that trips `--max-turns` still exits zero; only the `subtype` field in the
+output gives it away. The harness checks that field, so a truncated run counts
+as a failure instead of quietly becoming a data point. Partial failures are
+reported as `N/M runs succeeded` with a warning, never averaged away in silence.
+
 ## Scenarios
 
 Three sizes, each with a fixture project under `fixtures/` that carries just

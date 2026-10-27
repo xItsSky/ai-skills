@@ -1,7 +1,10 @@
 # MEDIUM - "add POST /orders with request validation and tests"
 # A NestJS + PostgreSQL service. Controller, service, repository, DTO
 # validation, and integration tests against a real schema.
-task: Add a validated REST endpoint with persistence and tests to a NestJS + PostgreSQL service.
+task: >-
+  Add a validated REST endpoint with persistence and tests to this NestJS +
+  PostgreSQL service. Write the files only. Do not install dependencies, and do
+  not run any build, lint, or test command: the toolchain is deliberately absent.
 skills:
   - backend-development
   - core-development

@@ -27,7 +27,9 @@ import time
 
 import yaml
 
-TURN_LIMIT = 40
+# Headroom over what a bounded scenario needs, so a run that trips the limit is
+# a real signal rather than the cap being set too tight.
+TURN_LIMIT = 60
 TIMEOUT_SECONDS = 900
 
 
@@ -71,10 +73,17 @@ def run_once(task: str, fixture: Path, model: str | None,
         payload = json.loads(completed.stdout)
     except ValueError:
         return {"error": "could not parse --output-format json output"}
+    # `subtype` says how the run ended: success, error_max_turns, or a refusal.
+    # A run that burns through the turn limit still exits zero, so without this
+    # the summary would count a truncated run as a clean one.
+    if payload.get("is_error") or payload.get("subtype") not in (None, "success"):
+        return {"error": f"ended as {payload.get('subtype')}",
+                "turns": payload.get("num_turns")}
     usage = payload.get("usage") or {}
     return {
         "wall_clock_s": round(elapsed, 1),
         "reported_ms": payload.get("duration_ms"),
+        "outcome": payload.get("subtype"),
         "turns": payload.get("num_turns"),
         "input_tokens": usage.get("input_tokens"),
         "output_tokens": usage.get("output_tokens"),
@@ -85,11 +94,20 @@ def run_once(task: str, fixture: Path, model: str | None,
 
 
 def summarize(runs: list[dict]) -> dict:
-    """Median across repeats, which is steadier than a mean on a noisy signal."""
+    """Median across repeats, which is steadier than a mean on a noisy signal.
+
+    Failed runs are reported, never silently dropped. A median over the handful
+    that happened to survive looks exactly like a clean result, and a scenario
+    that fails most of the time is a finding, not noise to average away.
+    """
+    failures = [run["error"] for run in runs if "error" in run]
     clean = [run for run in runs if "error" not in run]
     if not clean:
-        return {"error": runs[0].get("error", "all runs failed"), "runs": len(runs)}
-    summary = {"runs": len(clean)}
+        return {"attempted": len(runs), "succeeded": 0,
+                "error": failures[0] if failures else "all runs failed"}
+    summary = {"attempted": len(runs), "succeeded": len(clean)}
+    if failures:
+        summary["first_failure"] = failures[0]
     for metric in ("wall_clock_s", "turns", "input_tokens", "output_tokens",
                    "cache_read", "cache_write", "cost_usd"):
         values = [run[metric] for run in clean if isinstance(run.get(metric), (int, float))]
@@ -107,10 +125,15 @@ def format_delta(name: str, now: dict, before: dict) -> str:
 
 def report(results: dict, baseline: dict | None) -> None:
     for scenario, summary in results.items():
-        print(f"\n{scenario}")
-        if "error" in summary:
-            print(f"  failed: {summary['error']}")
+        attempted, succeeded = summary.get("attempted", 0), summary.get("succeeded", 0)
+        print(f"\n{scenario}  ({succeeded}/{attempted} runs succeeded)")
+        if not succeeded:
+            print(f"  ALL RUNS FAILED: {summary.get('error')}")
             continue
+        if succeeded < attempted:
+            print(f"  WARNING: {attempted - succeeded} run(s) failed, so the numbers "
+                  f"below are a median over {succeeded}. Treat them as indicative.")
+            print(f"  first failure: {summary.get('first_failure')}")
         previous = (baseline or {}).get(scenario, {})
         for metric in ("wall_clock_s", "turns", "input_tokens", "output_tokens",
                        "cache_read", "cost_usd"):
@@ -158,7 +181,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.out:
         args.out.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
         print(f"\nwrote {args.out}")
-    return 0 if all("error" not in value for value in results.values()) else 1
+    return 0 if all(value.get("succeeded") for value in results.values()) else 1
 
 
 if __name__ == "__main__":

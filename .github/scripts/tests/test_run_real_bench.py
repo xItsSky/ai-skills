@@ -35,16 +35,21 @@ class SummarizeTests(unittest.TestCase):
         summary = BENCH.summarize(runs)
         self.assertEqual(summary["turns"], 7)
         self.assertEqual(summary["wall_clock_s"], 20.0)
-        self.assertEqual(summary["runs"], 3)
+        self.assertEqual((summary["attempted"], summary["succeeded"]), (3, 3))
 
-    def test_failed_runs_are_excluded_from_the_median(self) -> None:
+    def test_partial_failure_is_counted_not_hidden(self) -> None:
         summary = BENCH.summarize([{"error": "boom"}, {"turns": 4}, {"turns": 6}])
         self.assertEqual(summary["turns"], 5)
-        self.assertEqual(summary["runs"], 2)
+        self.assertEqual((summary["attempted"], summary["succeeded"]), (3, 2))
+        self.assertEqual(summary["first_failure"], "boom")
+
+    def test_a_clean_sweep_records_no_failure(self) -> None:
+        self.assertNotIn("first_failure", BENCH.summarize([{"turns": 4}]))
 
     def test_all_runs_failing_surfaces_the_error(self) -> None:
         summary = BENCH.summarize([{"error": "boom"}, {"error": "boom"}])
         self.assertEqual(summary["error"], "boom")
+        self.assertEqual(summary["succeeded"], 0)
         self.assertNotIn("turns", summary)
 
     def test_missing_metric_is_omitted_rather_than_zeroed(self) -> None:
@@ -99,6 +104,23 @@ class RunOnceTests(unittest.TestCase):
         result = self.run_once(completed(), completed(json.dumps({"num_turns": 2})))
         self.assertEqual(result["turns"], 2)
         self.assertIsNone(result["input_tokens"])
+
+    def test_hitting_the_turn_limit_counts_as_a_failure(self) -> None:
+        # A truncated run still exits zero, so only the subtype gives it away.
+        payload = json.dumps({"num_turns": 40, "subtype": "error_max_turns",
+                              "usage": {"input_tokens": 10}})
+        result = self.run_once(completed(), completed(payload))
+        self.assertIn("error_max_turns", result["error"])
+        self.assertEqual(result["turns"], 40)
+
+    def test_an_error_flagged_payload_counts_as_a_failure(self) -> None:
+        payload = json.dumps({"num_turns": 3, "is_error": True, "subtype": "success"})
+        self.assertIn("error", self.run_once(completed(), completed(payload)))
+
+    def test_a_success_subtype_is_recorded(self) -> None:
+        payload = json.dumps({"num_turns": 3, "subtype": "success", "usage": {}})
+        self.assertEqual(self.run_once(completed(), completed(payload))["outcome"],
+                         "success")
 
     def test_the_fixture_is_copied_not_mutated(self) -> None:
         def capture(command, **kwargs):
@@ -158,21 +180,30 @@ class LocalPluginTests(unittest.TestCase):
 
 
 class ReportTests(unittest.TestCase):
-    def test_report_prints_metrics_and_deltas(self) -> None:
+    def render(self, results: dict, baseline: dict | None = None) -> str:
         output = io.StringIO()
         with redirect_stdout(output):
-            BENCH.report({"small": {"turns": 5, "wall_clock_s": 9.0}},
-                         {"small": {"turns": 10, "wall_clock_s": 18.0}})
-        text = output.getvalue()
-        self.assertIn("small", text)
-        self.assertIn("turns", text)
+            BENCH.report(results, baseline)
+        return output.getvalue()
+
+    def test_report_prints_metrics_and_deltas(self) -> None:
+        text = self.render(
+            {"small": {"attempted": 3, "succeeded": 3, "turns": 5, "wall_clock_s": 9.0}},
+            {"small": {"turns": 10, "wall_clock_s": 18.0}})
+        self.assertIn("3/3 runs succeeded", text)
         self.assertIn("-50%", text)
 
-    def test_report_surfaces_a_failed_scenario(self) -> None:
-        output = io.StringIO()
-        with redirect_stdout(output):
-            BENCH.report({"large": {"error": "timed out"}}, None)
-        self.assertIn("failed: timed out", output.getvalue())
+    def test_report_surfaces_a_fully_failed_scenario(self) -> None:
+        text = self.render({"large": {"attempted": 3, "succeeded": 0,
+                                      "error": "timed out"}})
+        self.assertIn("ALL RUNS FAILED: timed out", text)
+
+    def test_report_warns_loudly_on_a_partial_failure(self) -> None:
+        text = self.render({"large": {"attempted": 3, "succeeded": 1, "turns": 7,
+                                      "first_failure": "ended as error_max_turns"}})
+        self.assertIn("1/3 runs succeeded", text)
+        self.assertIn("WARNING", text)
+        self.assertIn("error_max_turns", text)
 
 
 class MainTests(unittest.TestCase):

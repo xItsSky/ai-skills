@@ -2,8 +2,10 @@
 # A NestJS API plus a Next.js frontend in one repo, with a Dockerfile and a
 # GitHub Actions pipeline. Touches auth, persistence, UI, layering, and CI.
 task: >-
-  Implement an authenticated feature spanning a NestJS API and a Next.js
-  frontend, with Docker packaging and CI.
+  Implement an authenticated orders feature spanning this NestJS API and Next.js
+  frontend, with Docker packaging and CI. Write the files only. Do not install
+  dependencies, and do not run any build, lint, or test command: the toolchain
+  is deliberately absent.
 skills:
   - backend-development
   - frontend-development
