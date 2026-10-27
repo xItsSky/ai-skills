@@ -1,0 +1,1 @@
+{ "name": "bench-large-monorepo", "private": true, "workspaces": ["api", "web"] }

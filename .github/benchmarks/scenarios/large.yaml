@@ -1,0 +1,27 @@
+# LARGE - "ship an authenticated orders feature end to end"
+# A NestJS API plus a Next.js frontend in one repo, with a Dockerfile and a
+# GitHub Actions pipeline. Touches auth, persistence, UI, layering, and CI.
+task: >-
+  Implement an authenticated feature spanning a NestJS API and a Next.js
+  frontend, with Docker packaging and CI.
+skills:
+  - backend-development
+  - frontend-development
+  - core-development
+triggers:
+  - stack_nestjs
+  - stack_nextjs
+  - http_endpoint
+  - persistence
+  - store_sql
+  - auth
+  - stack_tests
+  - unit_tests
+  - typed_code
+  - trust_boundary
+  - git_workflow
+  - code_structure
+  - architecture
+  - ui_change
+  - dockerfile
+  - github_actions

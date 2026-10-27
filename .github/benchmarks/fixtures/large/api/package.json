@@ -1,0 +1,8 @@
+{
+  "name": "api",
+  "dependencies": {
+    "@nestjs/core": "10.4.4", "@nestjs/common": "10.4.4",
+    "@nestjs/passport": "10.0.3", "class-validator": "0.14.1",
+    "pg": "8.13.0", "typeorm": "0.3.20"
+  }
+}

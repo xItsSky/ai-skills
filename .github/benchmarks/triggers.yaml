@@ -1,0 +1,120 @@
+# Every routing condition in every SKILL.md, mapped to a trigger a scenario can
+# switch on. benchmark_skills.py fails when a routing row is missing here, or
+# when an entry here matches no routing row. Adding a route means declaring what
+# it costs.
+#
+# scope: task    - knowable from the request alone
+# scope: project - needs the repo inspected first, so it forces a detection pass
+
+# -- core-development ---------------------------------------------------------
+"writing typed code":
+  key: typed_code
+  scope: task
+"writing untyped js":
+  key: untyped_js
+  scope: task
+"writing or reviewing any unit test":
+  key: unit_tests
+  scope: task
+"branching, committing, or opening a pr":
+  key: git_workflow
+  scope: task
+"structuring code or naming things":
+  key: code_structure
+  scope: task
+"designing layers, boundaries, di, or error handling":
+  key: architecture
+  scope: task
+"writing doc comments or documenting a public api":
+  key: public_api_docs
+  scope: task
+"checking a framework version, eol status, or a migration":
+  key: version_check
+  scope: project
+"working in an nx monorepo (nx.json present)":
+  key: nx_monorepo
+  scope: project
+"authoring a custom nx generator or executor":
+  key: nx_authoring
+  scope: task
+"writing a dockerfile or image (dockerfile present)":
+  key: dockerfile
+  scope: project
+"writing github actions ci workflows (.github/workflows present)":
+  key: github_actions
+  scope: project
+"handling input, secrets, or trust boundaries":
+  key: trust_boundary
+  scope: task
+"adding or upgrading a dependency":
+  key: dependency_change
+  scope: task
+
+# -- backend-development ------------------------------------------------------
+"@nestjs/core":
+  key: stack_nestjs
+  scope: project
+"spring-boot-starter* in pom.xml/build.gradle":
+  key: stack_spring_boot
+  scope: project
+"pom.xml/build.gradle, no spring boot":
+  key: stack_java
+  scope: project
+"express/fastify/koa, no nestjs":
+  key: stack_nodejs
+  scope: project
+"requirements.txt, pyproject.toml, or .py files":
+  key: stack_python
+  scope: project
+"designing or changing an endpoint":
+  key: http_endpoint
+  scope: task
+"reading or writing persisted data (any store)":
+  key: persistence
+  scope: task
+"using postgresql, mysql, or another sql database":
+  key: store_sql
+  scope: project
+"using mongodb":
+  key: store_mongodb
+  scope: project
+"using elasticsearch":
+  key: store_elasticsearch
+  scope: project
+"using redis":
+  key: store_redis
+  scope: project
+"handling identity or access control":
+  key: auth
+  scope: task
+
+# -- backend-development and frontend-development share this row --------------
+"writing or updating tests":
+  key: stack_tests
+  scope: task
+
+# -- frontend-development -----------------------------------------------------
+"@angular/core":
+  key: stack_angular
+  scope: project
+"next":
+  key: stack_nextjs
+  scope: project
+"react without next":
+  key: stack_react
+  scope: project
+"vue":
+  key: stack_vue
+  scope: project
+"ts/js ui, no framework":
+  key: stack_vanilla_ui
+  scope: project
+"building or changing any ui":
+  key: ui_change
+  scope: task
+"writing styles or a design system":
+  key: styling
+  scope: task
+"working on load time or runtime cost":
+  key: client_performance
+  scope: task

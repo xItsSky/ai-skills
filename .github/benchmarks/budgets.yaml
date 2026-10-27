@@ -1,0 +1,24 @@
+# Ceilings for what a skill invocation may cost before it writes any code.
+#
+# max    - a ratchet. Set to the measured baseline, so nothing may get worse.
+#          Lower it as each optimization lands; never raise it without saying why.
+# target - where the scenario should end up once the optimization work is done.
+#          Reported for visibility, never enforced.
+#
+# Baseline measured on the routing tables at the time this harness landed.
+# round_trips here is the design floor (load the skill, detect the stack, read
+# one batch). The gap worth closing is between that floor and `unbatched`, which
+# is what reading one file per turn costs today. That gap is runtime behaviour,
+# so run_real_bench.py is what proves it, not this gate.
+
+small:
+  max: {files: 8, tokens: 8501, round_trips: 3}
+  target: {files: 3, tokens: 3000, round_trips: 3}
+
+medium:
+  max: {files: 11, tokens: 14372, round_trips: 3}
+  target: {files: 5, tokens: 6000, round_trips: 3}
+
+large:
+  max: {files: 20, tokens: 26481, round_trips: 3}
+  target: {files: 10, tokens: 12000, round_trips: 3}

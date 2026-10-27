@@ -33,11 +33,14 @@ Run the same validation and regression tests as CI (Python 3.12+):
 python3 -m venv .venv
 .venv/bin/python -m pip install -r .github/requirements-validation.txt
 .venv/bin/python .github/scripts/validate_skills.py
+.venv/bin/python .github/scripts/benchmark_skills.py
 .venv/bin/python -m coverage run --source=.github/scripts -m unittest discover -s .github/scripts/tests
 .venv/bin/python -m coverage report --omit='*/tests/*' --fail-under=80
 ```
 
 The validator checks both catalogs, matching plugin names and versions, local source paths, shared skill directories, and YAML metadata. Regression tests exercise malformed catalogs, missing files, and descriptions truncated by YAML comments. These checks cover this repository's packaging conventions; they do not replace installation tests or validate every possible upstream manifest field.
+
+The benchmark measures what a skill invocation costs in files, tokens, and sequential round trips, and fails when a scenario goes over the ceiling in `.github/benchmarks/budgets.yaml`. Changing a routing table means declaring the new condition in `.github/benchmarks/triggers.yaml`; the run fails when a route and its trigger fall out of step. See `.github/benchmarks/README.md` for the model and for the real-run harness that measures wall-clock.
 
 With Claude Code installed, also run `claude plugin validate .` and `claude plugin validate <plugin-directory>` for each changed plugin.
 
