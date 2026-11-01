@@ -1,0 +1,17 @@
+# SMALL - "add a date-formatting helper and a unit test for it"
+# A React + TypeScript repo. One new file, one test file, no UI, no network,
+# no new dependency. The floor: the cheapest task that still counts as dev work.
+task: >-
+  Add a pure utility function and its unit test to this React + TypeScript app.
+  Write the files only. Do not install dependencies, and do not run any build,
+  lint, or test command: the toolchain is deliberately absent.
+skills:
+  - frontend-development
+  - core-development
+triggers:
+  - stack_react
+  - typed_code
+  - unit_tests
+  - stack_tests
+  - code_structure
+  - git_workflow
