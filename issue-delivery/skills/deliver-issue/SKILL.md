@@ -16,9 +16,9 @@ The optional self-review uses `review-changes` from the `code-review` plugin. If
 
 Do not restate what these cover; use them:
 
-- Branch naming, commits, and gitflow: `core-development` (`references/git-gitflow.md`).
+- Branch naming, commits, and gitflow: `core-development` (`references/baseline.md`).
 - Coding standards for the detected stack, and dependency vetting: `core-development` and the matching frontend or backend skill.
-- The testing contract: `core-development` (`references/testing-philosophy.md`).
+- The testing contract: `core-development` (`references/baseline.md`).
 - Self-review of the diff: `review-changes`.
 
 ## Step 1: Identify the issue and tracker

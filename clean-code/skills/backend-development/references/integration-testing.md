@@ -1,6 +1,6 @@
 # Integration Testing
 
-The backend mechanics of the contract in `testing-philosophy.md`. That file defines what a test must be worth and what counts as a real test. This one covers how to test a backend's wiring without faking the parts that carry the risk.
+The backend mechanics of the contract in the Tests section of core `references/baseline.md`, which defines what a test must be worth and what counts as a real test. This one covers how to test a backend's wiring without faking the parts that carry the risk.
 
 ## Two layers, two jobs
 
@@ -34,7 +34,7 @@ The backend mechanics of the contract in `testing-philosophy.md`. That file defi
 ## Prefer few high-value tests
 
 - A handful of integration tests through the real stack catch more than a wall of mock-heavy tests that only confirm the mocks.
-- If reaching the logic needs elaborate mock scaffolding, the seams are wrong. Fix the design, then test. (Restated in `testing-philosophy.md` as a red flag.)
+- If reaching the logic needs elaborate mock scaffolding, the seams are wrong. Fix the design, then test.
 - Don't re-test framework behavior. Test your routes, your rules, your queries.
 
 ## Quick reference

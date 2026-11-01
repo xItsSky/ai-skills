@@ -128,7 +128,7 @@ ConfigModule.forRoot({
 
 ## Testing
 
-Follow the contract in `core-development/references/testing-philosophy.md`. NestJS specifics:
+Follow the contract in `core-development/references/baseline.md`. NestJS specifics:
 
 - Unit test services with `Test.createTestingModule`, providing mocked repositories and collaborators. Assert the returned value or the state change, not that a mock was called.
 - Mock at the boundary: repositories, external clients, the clock. Do not mock the service under test.

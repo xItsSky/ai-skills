@@ -175,7 +175,7 @@ A flag bag (`isLoading`, `isError`, `data`, `error`) allows contradictory combin
 
 ## Testing
 
-Test behavior, not implementation. Use React Testing Library and interact as the user would: query by role and text, fire events, assert on what renders. Favor component and integration tests, back them with targeted unit tests, and reserve end-to-end tests for critical flows. See `core-development/references/testing-philosophy.md` for the coverage contract.
+Test behavior, not implementation. Use React Testing Library and interact as the user would: query by role and text, fire events, assert on what renders. Favor component and integration tests, back them with targeted unit tests, and reserve end-to-end tests for critical flows. See `core-development/references/baseline.md` for the coverage contract.
 
 ## Quick reference
 

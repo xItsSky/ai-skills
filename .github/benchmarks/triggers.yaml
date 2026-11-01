@@ -7,17 +7,13 @@
 # scope: project - needs the repo inspected first, so it forces a detection pass
 
 # -- core-development ---------------------------------------------------------
-"writing typed code":
-  key: typed_code
+# One row covering types, tests, security, and git, because every task needs all
+# four and one read beats four turns.
+"changing code at all: types, tests, security, git":
+  key: baseline
   scope: task
 "writing untyped js":
   key: untyped_js
-  scope: task
-"writing or reviewing any unit test":
-  key: unit_tests
-  scope: task
-"branching, committing, or opening a pr":
-  key: git_workflow
   scope: task
 "structuring code or naming things":
   key: code_structure
@@ -43,12 +39,6 @@
 "writing github actions ci workflows (.github/workflows present)":
   key: github_actions
   scope: project
-"handling input, secrets, or trust boundaries":
-  key: trust_boundary
-  scope: task
-"adding or upgrading a dependency":
-  key: dependency_change
-  scope: task
 
 # -- backend-development ------------------------------------------------------
 "@nestjs/core":

@@ -196,7 +196,7 @@ type RequestState<T> =
 
 ## Testing
 
-The contract in `testing-philosophy.md` holds here: test behavior, not wiring. A component test that only asserts a child was rendered protects nothing.
+The testing contract in core `references/baseline.md` holds here: test behavior, not wiring. A component test that only asserts a child was rendered protects nothing.
 
 - Test components through Vue Test Utils or Testing Library. Testing Library pushes you toward asserting what the user sees and does, which is what you want.
 - Drive the component the way a user would, clicking, typing, submitting, then assert the rendered output or the emitted event. Do not reach into `vm` internals to check private state.

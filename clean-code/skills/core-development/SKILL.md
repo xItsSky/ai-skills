@@ -13,10 +13,8 @@ what the task needs.
 
 | When you are | Read |
 |---|---|
-| Writing typed code | `references/typescript.md` |
+| Changing code at all: types, tests, security, git | `references/baseline.md` |
 | Writing untyped JS | `references/javascript.md` |
-| Writing or reviewing any unit test | `references/testing-philosophy.md` |
-| Branching, committing, or opening a PR | `references/git-gitflow.md` |
 | Structuring code or naming things | `references/clean-code.md` |
 | Designing layers, boundaries, DI, or error handling | `references/architecture.md` |
 | Writing doc comments or documenting a public API | `references/code-documentation.md` |
@@ -25,13 +23,15 @@ what the task needs.
 | Authoring a custom NX generator or executor | `references/nx-generators.md`, `references/nx-executors.md` |
 | Writing a Dockerfile or image (`Dockerfile` present) | `references/docker.md` |
 | Writing GitHub Actions CI workflows (`.github/workflows` present) | `references/github-actions.md` |
-| Handling input, secrets, or trust boundaries | `references/security-baseline.md` |
-| Adding or upgrading a dependency | `references/security-baseline.md` |
+
+`baseline.md` carries the four things every task needs, so it is one read
+instead of four. The rest of this directory goes deeper on one topic each and
+loads only when the row matches.
 
 ## The contract, in one line each
 
 - Types are strict. `any` is a bug; reach for `unknown` when a type is genuinely open.
-- Every feature and fix ships with meaningful unit tests. Coverage floor is 80%. See `testing-philosophy.md`.
-- Work happens on a branch, never on `main` or `develop`. See `git-gitflow.md`.
+- Every feature and fix ships with meaningful unit tests. Coverage floor is 80%.
+- Work happens on a branch, never on `main` or `develop`.
 - Untrusted input is validated before use. Secrets never reach the client or the repo.
-- New dependencies are vetted before install. On known vulnerabilities, stop and get the user's approval. See `security-baseline.md`.
+- New dependencies are vetted before install. On known vulnerabilities, stop and get the user's approval.

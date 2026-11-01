@@ -35,13 +35,13 @@ monorepo, take only the rows for apps whose files you touch.
 | `next` | Next.js | `references/nextjs.md` |
 | `react` without `next` | React | `references/react.md` |
 | `vue` | Vue | `references/vue.md` |
-| TS/JS UI, no framework | Vanilla | core `references/typescript.md` (+ `javascript.md`) |
+| TS/JS UI, no framework | Vanilla | core `references/baseline.md` (+ `javascript.md`) |
 
 | When you are | Also read |
 |---|---|
 | Building or changing any UI | `references/accessibility.md` |
 | Writing styles or a design system | `references/css-styling.md` |
-| Writing or updating tests | `references/component-testing.md` + core `references/testing-philosophy.md` |
+| Writing or updating tests | `references/component-testing.md` + core `references/baseline.md` |
 | Working on load time or runtime cost | `references/client-performance.md` |
 
 Fold the shared baseline into the same batch: `core-development` for TypeScript,
@@ -58,5 +58,5 @@ batch.
 - Compute derived values; store only what you cannot derive.
 - Every UI change preserves keyboard access and semantics.
 - Tests assert what the user observes, never internal calls.
-- Vet a dependency before installing it. On a known vulnerability, stop and get approval. See core `references/security-baseline.md`.
+- Vet a dependency before installing it. On a known vulnerability, stop and get approval. See core `references/baseline.md`.
 - Apply the rules matching the detected version. Flag end-of-life versions and propose upgrades, but never change a version without approval.
