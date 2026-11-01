@@ -2,9 +2,10 @@
 # A NestJS + PostgreSQL service. Controller, service, repository, DTO
 # validation, and integration tests against a real schema.
 task: >-
-  Add a validated REST endpoint with persistence and tests to this NestJS +
-  PostgreSQL service. Write the files only. Do not install dependencies, and do
-  not run any build, lint, or test command: the toolchain is deliberately absent.
+  You are about to add a validated REST endpoint with persistence and tests to
+  this NestJS + PostgreSQL service. Work out which conventions apply, then reply
+  with the rules you will follow and the files you will touch. Do not create,
+  edit, or run anything: this is the preparation step only.
 skills:
   - backend-development
   - core-development
