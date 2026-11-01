@@ -5,25 +5,35 @@ description: Use when writing, reviewing, or refactoring backend or server code 
 
 # Backend Development
 
-Load only the guidance that matches the project. Detect the framework and language first, read the one reference that fits, then pull in cross-cutting references as the task needs them. Do not read files for stacks the project does not use.
+Detect once, read once, then write. Reading references one at a time is the
+slowest thing this skill can do: each extra turn costs more than the file.
 
-## Step 1: Detect the stack
+## Step 1: Detect everything in one command
 
-Before writing code, inspect the project:
+```bash
+find . -maxdepth 3 -name package.json -not -path '*/node_modules/*' -print -exec \
+  grep -oE '"(@nestjs/core|express|fastify|koa|typeorm|prisma|pg|mysql2|mongoose|@elastic/elasticsearch|redis|ioredis|typescript)": *"[^"]*"' {} \;
+find . -maxdepth 2 \( -name pom.xml -o -name build.gradle -o -name pyproject.toml \
+  -o -name requirements.txt -o -name nx.json -o -name Dockerfile \) -print
+```
 
-1. Read `package.json` (Node ecosystem) or `pom.xml` / `build.gradle` (JVM).
-2. Match the strongest signal in the table. Read that one file.
-3. Read the resolved version from the lockfile or the resolved dependency tree, not the declared range. Apply only the rules that match that version. For support status and upgrade proposals, see the `core-development` skill's `references/versioning-and-migration.md`.
+Never open a lockfile whole; they run to megabytes. For a resolved version, grep
+the one package: `grep -m1 -A2 '"node_modules/@nestjs/core"' package-lock.json`.
+Apply only the rules matching that version; for support status and upgrades see
+core `references/versioning-and-migration.md`.
 
-| Signal in the project | Stack | Read |
+## Step 2: Read every match in one batch
+
+Read all applicable rows **in a single message**. A one-file fix needs the stack
+row alone; a feature crossing layers needs all of them.
+
+| Signal | Stack | Read |
 |---|---|---|
 | `@nestjs/core` | NestJS | `references/nestjs.md` |
 | `spring-boot-starter*` in `pom.xml`/`build.gradle` | Spring Boot | `references/spring-boot.md` |
 | `pom.xml`/`build.gradle`, no Spring Boot | Java | `references/java.md` |
 | `express`/`fastify`/`koa`, no NestJS | Node.js | `references/nodejs.md` |
 | `requirements.txt`, `pyproject.toml`, or `.py` files | Python | `references/python.md` |
-
-## Step 2: Add cross-cutting references as the task requires
 
 | When you are | Also read |
 |---|---|
@@ -36,17 +46,19 @@ Before writing code, inspect the project:
 | Handling identity or access control | `references/auth-security.md` |
 | Writing or updating tests | `references/integration-testing.md` + core `references/testing-philosophy.md` |
 
-Detect the data store from dependencies: `pg`, `mysql`, `typeorm`, or `prisma` for SQL; `mongoose` or `mongodb` for MongoDB; `@elastic/elasticsearch` for Elasticsearch; `redis` or `ioredis` for Redis. Read `database.md` for the general rules, plus the engine reference that matches.
+Store signals: `pg`, `mysql2`, `typeorm`, `prisma` mean SQL; `mongoose` MongoDB;
+`@elastic/elasticsearch` Elasticsearch; `redis` or `ioredis` Redis.
 
-## Step 3: Apply the shared baseline
-
-For TypeScript rules, the testing contract, git workflow, and security, follow the `core-development` skill. In an NX monorepo (`nx.json` present), also read core `references/nx.md`. For layering and error-handling design, see core `references/architecture.md`. If a `Dockerfile` or a `.github/workflows/` directory is present, read core `references/docker.md` or `references/github-actions.md`.
+Fold the shared baseline into the same batch: `core-development` for TypeScript,
+testing, git, and security; core `references/nx.md` when `nx.json` appeared;
+core `references/docker.md` when a `Dockerfile` did; core
+`references/architecture.md` for layering and error handling.
 
 ## Non-negotiables
 
 - Validate every input at the trust boundary. Never trust the client.
 - Enforce authentication and authorization on the server, on every protected path.
-- Keep HTTP concerns in controllers, business rules in services, data access in repositories.
+- HTTP concerns in controllers, business rules in services, data access in repositories.
 - Tests assert behavior and contracts, never internal wiring.
-- Before installing a dependency, vet it for known vulnerabilities. If any are found, report them and wait for approval. See core `references/security-baseline.md`.
-- Detect the framework and language version and apply the rules that match it. Flag end-of-life versions and propose upgrades, but never change a version without approval.
+- Vet a dependency before installing it. On a known vulnerability, stop and get approval. See core `references/security-baseline.md`.
+- Apply the rules matching the detected version. Flag end-of-life versions and propose upgrades, but never change a version without approval.
