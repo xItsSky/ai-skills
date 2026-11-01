@@ -5,9 +5,11 @@ description: Use when writing or reviewing code in any stack. It captures the cr
 
 # Core Development
 
-Standards that hold regardless of framework. The `frontend-development` and `backend-development` skills point here for anything that is not stack-specific. Read only the file that matches what you are doing.
+Standards that hold regardless of framework. `frontend-development` and
+`backend-development` point here for anything not stack-specific.
 
-## References
+Read every row that applies **in a single message**, not one per turn. Take only
+what the task needs.
 
 | When you are | Read |
 |---|---|

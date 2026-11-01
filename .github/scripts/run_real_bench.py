@@ -113,7 +113,19 @@ def summarize(runs: list[dict]) -> dict:
         values = [run[metric] for run in clean if isinstance(run.get(metric), (int, float))]
         if values:
             summary[metric] = round(statistics.median(values), 2)
+            # Spread decides whether a before/after delta means anything. A 10%
+            # median shift inside a 40% spread is noise wearing a number.
+            summary[f"{metric}_spread"] = [round(min(values), 2), round(max(values), 2)]
     return summary
+
+
+def noise_floor(summary: dict, metric: str) -> float | None:
+    """Observed spread as a percentage of the median, or None if unknown."""
+    low, high = (summary.get(f"{metric}_spread") or [None, None])[:2]
+    median = summary.get(metric)
+    if low is None or not median:
+        return None
+    return (high - low) / median * 100
 
 
 def format_delta(name: str, now: dict, before: dict) -> str:
@@ -137,9 +149,20 @@ def report(results: dict, baseline: dict | None) -> None:
         previous = (baseline or {}).get(scenario, {})
         for metric in ("wall_clock_s", "turns", "input_tokens", "output_tokens",
                        "cache_read", "cost_usd"):
-            if metric in summary:
-                print(f"  {metric:<14} {summary[metric]:>10}"
-                      f"{format_delta(metric, summary, previous)}")
+            if metric not in summary:
+                continue
+            spread = summary.get(f"{metric}_spread")
+            line = (f"  {metric:<14} {summary[metric]:>10}"
+                    f"{format_delta(metric, summary, previous):<18}")
+            if spread:
+                line += f" spread {spread[0]}..{spread[1]}"
+            floor = noise_floor(summary, metric)
+            delta = format_delta(metric, summary, previous)
+            if floor is not None and delta:
+                change = abs(summary[metric] - previous[metric]) / previous[metric] * 100
+                if change < floor:
+                    line += "  [within noise]"
+            print(line)
 
 
 def main(argv: list[str] | None = None) -> int:
