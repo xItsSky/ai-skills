@@ -108,6 +108,22 @@ Merging is not free: a merged file loads its whole content even for a task that
 needs one section of it, so a scenario can pay more tokens to save a turn.
 `budgets.yaml` records where that trade was made deliberately.
 
+### The static model is structure, not prediction
+
+It reports what the routing tables would select. The model does not follow them
+exhaustively, so the two diverge in both directions. On the `trivial` scenario
+the tables select five files; three real runs read zero, one and one. On
+`medium` the tables select eight and real runs read ten to fourteen.
+
+So `files` is a measure of how much the routing *offers*, useful for comparing
+two revisions of the tables against each other. It is not a forecast of what a
+session will load. When the question is what the model actually does, run
+`run_real_bench.py` and read `turns`.
+
+The `trivial` scenario exists for a question the others cannot ask: whether a
+mechanical edit, a rename with one correct outcome, pulls in the skill at all.
+Its budget is an upper bound on the damage, not an expectation.
+
 ### On estimating how much a file will compress
 
 Three proxies were tried and all three were wrong: judging a file procedural or

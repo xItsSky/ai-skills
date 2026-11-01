@@ -258,7 +258,7 @@ def evaluate(measurement: Measurement, budget: dict) -> list[str]:
 
 def format_row(measurement: Measurement, budget: dict) -> str:
     target = budget.get("target", {})
-    return (f"  {measurement.scenario:<7}"
+    return (f"  {measurement.scenario:<9}"
             f"files {measurement.file_count:>3}/{budget['max']['files']:<3}"
             f"(target {str(target.get('files', '-')):>3})   "
             f"tokens {measurement.tokens:>6}/{budget['max']['tokens']:<6}"

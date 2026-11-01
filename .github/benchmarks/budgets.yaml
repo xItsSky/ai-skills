@@ -29,3 +29,9 @@ large:
   # added to what this scenario loads has to earn its place against that.
   max: {files: 17, tokens: 24929, round_trips: 3}
   target: {files: 8, tokens: 20000, round_trips: 3}
+
+trivial:
+  # A mechanical rename. The real question is not this ceiling but whether the
+  # skill loads at all; see the scenario file.
+  max: {files: 5, tokens: 7771, round_trips: 3}
+  target: {files: 0, tokens: 0, round_trips: 1}
