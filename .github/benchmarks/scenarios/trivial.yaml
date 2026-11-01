@@ -1,0 +1,21 @@
+# TRIVIAL - "rename titleCase to toTitleCase"
+# A mechanical edit with exactly one correct outcome. No new behaviour, no new
+# file, no dependency, no test to write, no decision a reviewer could disagree
+# with.
+#
+# This scenario exists to answer a different question from the other three.
+# They ask what a task costs once the skill is loaded. This one asks whether
+# the skill should load at all. The static numbers below are what it would cost
+# if invoked; whether it gets invoked is a CLAUDE.md decision that only
+# run_real_bench.py can observe.
+task: >-
+  Rename the exported function titleCase to toTitleCase in src/format.ts and
+  update its caller. Do not install dependencies, and do not run any build,
+  lint, or test command: the toolchain is deliberately absent.
+skills:
+  - frontend-development
+  - core-development
+triggers:
+  - stack_react
+  - baseline
+  - code_structure
