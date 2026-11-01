@@ -1,6 +1,6 @@
 # Accessibility
 
-Accessibility is part of the definition of done for any UI change, not a later pass. The rules below track WCAG 2.2 AA and are framework-agnostic. Apply them whenever you add or change markup, interaction, or visual state.
+WCAG 2.2 AA, framework-agnostic. Applies to any change to markup, interaction, or visual state.
 
 ## Semantic HTML first
 

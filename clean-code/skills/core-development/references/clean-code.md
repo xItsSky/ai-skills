@@ -1,6 +1,6 @@
 # Clean Code
 
-Language-agnostic principles for code that the next person can read, change, and trust. The next person is usually you, six months out. Apply these everywhere; they cost little and compound.
+Language-agnostic principles for code that the next person can read, change, and trust.
 
 ## Names
 

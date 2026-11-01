@@ -142,7 +142,7 @@ List<Order> findByCustomerId(String customerId);
 
 ## Testing
 
-The coverage contract and what counts as a real test live in `core-development/references/testing-philosophy.md`. Spring specifics:
+The coverage contract and what counts as a real test live in `core-development/references/baseline.md`. Spring specifics:
 
 - Use slice tests to keep them fast and focused. `@WebMvcTest` for the web layer with `MockMvc`; `@DataJpaTest` for repositories and queries.
 - Reserve `@SpringBootTest` for integration tests that need the full context wired.

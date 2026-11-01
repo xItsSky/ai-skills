@@ -1,24 +1,31 @@
 # Ceilings for what a skill invocation may cost before it writes any code.
 #
-# max    - a ratchet. Set to the measured baseline, so nothing may get worse.
-#          Lower it as each optimization lands; never raise it without saying why.
-# target - where the scenario should end up once the optimization work is done.
-#          Reported for visibility, never enforced.
+# max    - a ratchet. Lower it as each optimization lands; raising one needs a
+#          reason in the pull request.
+# target - where the scenario should end up. Reported, never enforced.
 #
-# Baseline measured on the routing tables at the time this harness landed.
-# round_trips here is the design floor (load the skill, detect the stack, read
-# one batch). The gap worth closing is between that floor and `unbatched`, which
-# is what reading one file per turn costs today. That gap is runtime behaviour,
-# so run_real_bench.py is what proves it, not this gate.
+# Which metric matters: under `claude -p` the model issues one tool call per
+# message, so one file read is one turn and `files` is what tracks wall-clock.
+# `tokens` is largely orthogonal to latency, but still bounded because Claude
+# Code keeps only 25k tokens of skill content after compaction and drops older
+# skills past that. See the README.
+#
+# round_trips is the design floor (load the skill, detect the stack, read one
+# batch). It does not move, because batching is unreachable in headless mode.
 
 small:
-  max: {files: 8, tokens: 8501, round_trips: 3}
-  target: {files: 3, tokens: 3000, round_trips: 3}
+  # Tokens rose 291 when the four always-loaded files merged into baseline.md:
+  # this scenario now reads the security section it does not need. Bought two
+  # turns for it, and the tokens are cache reads from the second turn onward.
+  max: {files: 6, tokens: 8761, round_trips: 3}
+  target: {files: 3, tokens: 6000, round_trips: 3}
 
 medium:
-  max: {files: 11, tokens: 14372, round_trips: 3}
-  target: {files: 5, tokens: 6000, round_trips: 3}
+  max: {files: 8, tokens: 12992, round_trips: 3}
+  target: {files: 5, tokens: 10000, round_trips: 3}
 
 large:
-  max: {files: 20, tokens: 26481, round_trips: 3}
-  target: {files: 10, tokens: 12000, round_trips: 3}
+  # Back under the 25k compaction budget, with 71 tokens of headroom. Anything
+  # added to what this scenario loads has to earn its place against that.
+  max: {files: 17, tokens: 24929, round_trips: 3}
+  target: {files: 8, tokens: 20000, round_trips: 3}

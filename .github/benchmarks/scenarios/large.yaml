@@ -19,10 +19,7 @@ triggers:
   - store_sql
   - auth
   - stack_tests
-  - unit_tests
-  - typed_code
-  - trust_boundary
-  - git_workflow
+  - baseline
   - code_structure
   - architecture
   - ui_change

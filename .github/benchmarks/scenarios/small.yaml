@@ -11,8 +11,6 @@ skills:
   - core-development
 triggers:
   - stack_react
-  - typed_code
-  - unit_tests
+  - baseline
   - stack_tests
   - code_structure
-  - git_workflow

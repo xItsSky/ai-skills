@@ -1,10 +1,10 @@
 # SQL
 
-Engine-specific depth for relational databases, targeting PostgreSQL and MySQL 8+. The `database.md` sibling covers the cross-store rules (parametrized queries, N+1, keyset pagination, short transactions, forward-only migrations, connection pooling, keeping persistence out of the domain). This file does not repeat them. It goes into the parts that are actually relational: how indexes are used, how to read a plan, how isolation and locking behave, and how to change a schema without taking the table down. Differences between Postgres and MySQL are called out inline where they matter.
+Engine-specific depth for relational databases, targeting PostgreSQL and MySQL 8+. The `database.md` sibling covers the cross-store rules (parametrized queries, N+1, keyset pagination, short transactions, forward-only migrations, connection pooling, keeping persistence out of the domain).
 
 ## Column types and constraints
 
-The schema is your first and cheapest validation layer. Push invariants into it so bad data cannot exist, rather than trusting every code path to check.
+Push invariants into the schema so bad data cannot exist.
 
 - Make columns `NOT NULL` by default. Add `NULL` only when absence is a real business state, not a placeholder for "not filled in yet".
 - Pick the narrowest type that holds the value. Use a real `timestamptz` (Postgres) or `DATETIME`/`TIMESTAMP` (MySQL) for instants, `numeric`/`DECIMAL` for money, never `float`. Store enums as a constrained type, not free text.
@@ -26,8 +26,6 @@ CREATE TABLE orders (
 
 ## Indexing strategy
 
-`database.md` says to index filter/join/sort columns. The relational specifics are about column order and what actually makes an index usable.
-
 - In a composite index, order the columns equality-first, then the range or sort column: `(tenant_id, created_at)` serves `WHERE tenant_id = $1 ORDER BY created_at`. A query can use a leading prefix of the index but not a trailing column alone, so `WHERE created_at = $1` gets nothing from that index.
 - A covering index answers the query from the index alone, with no table lookup. In Postgres use `INCLUDE` for the non-key payload; in MySQL, add the columns to the index and rely on the clustered primary key already being present.
 
@@ -41,8 +39,6 @@ CREATE INDEX idx_users_email ON users (email) INCLUDE (full_name);
 - After bulk loads, refresh planner statistics (`ANALYZE` in Postgres) so the optimizer sees reality.
 
 ## Read the query plan
-
-Never guess at performance. Ask the engine what it does.
 
 - Postgres: `EXPLAIN` shows the estimated plan; `EXPLAIN (ANALYZE, BUFFERS)` runs the query and shows real row counts, timing, and buffer reads.
 - MySQL: `EXPLAIN` shows the plan; `EXPLAIN ANALYZE` gives measured timings on 8.0+.

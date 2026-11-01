@@ -136,7 +136,7 @@ active_ids = [u.id for u in users if u.is_active]
 - Put shared fixtures in `conftest.py` so they are discovered without explicit imports.
 - Drive variations with `@pytest.mark.parametrize` instead of loops inside a test.
 - Keep each test independent: no shared mutable state between tests.
-- For the coverage contract and the philosophy behind it, follow `core-development/references/testing-philosophy.md`.
+- For the coverage contract and the philosophy behind it, follow `core-development/references/baseline.md`.
 
 ## Do / Instead of
 

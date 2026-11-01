@@ -64,7 +64,7 @@ Is the change adequately tested? Apply the project's testing standard.
 - Over-broad mocks that assert nothing real
 - Tests that restate the implementation or duplicate coverage without value
 
-When available, use the clean-code `testing-philosophy.md` for what counts as a real test.
+When available, use the Tests section of the clean-code `baseline.md` for what counts as a real test.
 
 ### Performance: decoration `(performance)`
 

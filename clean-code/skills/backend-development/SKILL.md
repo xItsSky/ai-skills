@@ -44,7 +44,7 @@ row alone; a feature crossing layers needs all of them.
 | Using Elasticsearch | `references/database.md` + `references/elasticsearch.md` |
 | Using Redis | `references/database.md` + `references/redis.md` |
 | Handling identity or access control | `references/auth-security.md` |
-| Writing or updating tests | `references/integration-testing.md` + core `references/testing-philosophy.md` |
+| Writing or updating tests | `references/integration-testing.md` + core `references/baseline.md` |
 
 Store signals: `pg`, `mysql2`, `typeorm`, `prisma` mean SQL; `mongoose` MongoDB;
 `@elastic/elasticsearch` Elasticsearch; `redis` or `ioredis` Redis.
@@ -60,5 +60,5 @@ core `references/docker.md` when a `Dockerfile` did; core
 - Enforce authentication and authorization on the server, on every protected path.
 - HTTP concerns in controllers, business rules in services, data access in repositories.
 - Tests assert behavior and contracts, never internal wiring.
-- Vet a dependency before installing it. On a known vulnerability, stop and get approval. See core `references/security-baseline.md`.
+- Vet a dependency before installing it. On a known vulnerability, stop and get approval. See core `references/baseline.md`.
 - Apply the rules matching the detected version. Flag end-of-life versions and propose upgrades, but never change a version without approval.

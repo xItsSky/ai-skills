@@ -1,6 +1,6 @@
 # Architecture
 
-How to structure an application so business rules stay independent of frameworks, databases, and delivery mechanisms. This covers the cross-cutting design rules. For naming, function size, and composition see `clean-code.md`; for HTTP and REST specifics see the backend `api-design.md`.
+How to structure an application so business rules stay independent of frameworks, databases, and delivery mechanisms. For naming, function size, and composition see `clean-code.md`; for HTTP and REST specifics see the backend `api-design.md`.
 
 ## The dependency rule
 

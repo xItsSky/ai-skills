@@ -95,6 +95,30 @@ turn, so `files` is the metric that tracks latency, not `tokens`. Work that
 reduces how many files a scenario loads shows up. Work that only makes those
 files shorter mostly does not, however much context it saves.
 
+## What to optimize, and in what order
+
+1. **Fewer files.** Merging references that always load together removes a turn
+   each. This is the only change that reliably moves wall-clock.
+2. **Stay under the token budget.** Not for speed, but because crossing 25k
+   means Claude Code silently drops older skills from the session.
+3. **Shorter files, last.** Worth doing where a file is padded, worth skipping
+   where it is dense. It buys context, not time.
+
+Merging is not free: a merged file loads its whole content even for a task that
+needs one section of it, so a scenario can pay more tokens to save a turn.
+`budgets.yaml` records where that trade was made deliberately.
+
+### On estimating how much a file will compress
+
+Three proxies were tried and all three were wrong: judging a file procedural or
+prosaic by eye, the ratio of prose lines to table and code lines, and raw size.
+`sql.md` scores 58% prose and looks highly compressible, but that prose is
+operational detail a model gets wrong without it, like a `CHECK` passing on
+`NULL`, `CREATE INDEX CONCURRENTLY` being unable to run inside a transaction,
+and adding a foreign key `NOT VALID` before validating it separately.
+
+There is no cheap proxy. Read the file.
+
 ### Why the scenario prompts forbid running anything
 
 Each task ends with an instruction not to install dependencies or run a build,

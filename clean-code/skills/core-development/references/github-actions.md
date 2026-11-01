@@ -1,6 +1,6 @@
 # GitHub Actions
 
-A workflow runs with credentials against your repository, so treat it as production code, not a config afterthought. Grant the least it needs, pin what it depends on, and never let a secret reach a log. The rules below cover authoring CI/CD workflows.
+Authoring CI/CD workflows. A workflow runs with credentials against your repository: grant the least it needs, pin what it depends on, and never let a secret reach a log.
 
 ## Workflow and job structure
 

@@ -26,7 +26,7 @@ Read what the change is trying to do before reviewing it: the pull or merge requ
 
 Detect the languages and frameworks in the changed files (`package.json`, `pom.xml`, `build.gradle`, file extensions). Then load the standard to review against:
 
-- If the `clean-code` plugin from this marketplace is available, use its stack references (for example `react.md`, `spring-boot.md`, `testing-philosophy.md`) as the baseline.
+- If the `clean-code` plugin from this marketplace is available, use its stack references (for example `react.md`, `spring-boot.md`, `baseline.md`) as the baseline.
 - Otherwise apply general best practice and honour the project's own conventions: CONTRIBUTING, CLAUDE.md or AGENTS.md, linter and formatter configs.
 
 Run the dependency vulnerability audit and pass its results to the security pass. The commands and thresholds are in `references/review-dimensions.md`.
