@@ -1,8 +1,8 @@
 # NestJS
 
-Conventions for NestJS 10 and 11 on an active Node LTS line (see `nodejs.md` for the runtime baseline). The layering matters more than any single decorator: HTTP stays in controllers, business rules live in services, data access hides behind repositories. Auth, validation, and persistence detail belong to the `api-design.md`, `auth-security.md`, and `database.md` siblings; this file covers how the pieces fit together.
+Conventions for NestJS 10 and 11 on an active Node LTS line (see `nodejs.md` for the runtime baseline). HTTP stays in controllers, business rules in services, data access behind repositories.
 
-Almost nothing here is version-specific; the decorators and DI model are stable across 10 and 11. Where a difference matters, it is called out inline. The largest change on 11 is the default HTTP adapter moving to Express 5, which tightens route path parsing (wildcards now need a named form such as `*splat`) and query parsing; the layering rules below are unaffected.
+The decorators and DI model are stable across 10 and 11; differences are called out inline. The largest change on 11 is the default HTTP adapter moving to Express 5, which tightens route path parsing (wildcards now need a named form such as `*splat`) and query parsing; the layering rules below are unaffected.
 
 ## Module organization
 

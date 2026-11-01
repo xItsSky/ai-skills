@@ -1,6 +1,6 @@
 # Component Testing
 
-How to test UI components in any framework. The coverage contract and what counts as a real test live in `../../core-development/references/baseline.md`; this file is the frontend mechanics. The guiding idea is Testing Library's: a test should resemble how a user uses the component. The more it does, the more confidence it gives.
+How to test UI components in any framework. The coverage contract and what counts as a real test live in `../../core-development/references/baseline.md`; this file is the frontend mechanics. Testing Library's idea applies: the more a test resembles how a user uses the component, the more confidence it gives.
 
 ## Test behavior, not implementation
 

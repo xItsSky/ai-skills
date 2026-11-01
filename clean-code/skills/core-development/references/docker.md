@@ -1,6 +1,6 @@
 # Docker
 
-An image is a build artifact, and it should be small, reproducible, and boring. Every layer you add is attack surface, cache you can invalidate, or bytes you ship. The rules below cover authoring Dockerfiles and images, not orchestration.
+Authoring Dockerfiles and images, not orchestration. Every layer is attack surface, cache you can invalidate, or bytes you ship.
 
 ## Base images
 

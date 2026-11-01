@@ -1,6 +1,6 @@
 # Database
 
-Data-layer conventions for relational and document stores. The persistence engine changes; most of these rules don't.
+Data-layer conventions for relational and document stores.
 
 ## Model for access patterns
 

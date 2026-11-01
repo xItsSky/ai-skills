@@ -17,13 +17,15 @@ small:
   # Tokens rose 291 when the four always-loaded files merged into baseline.md:
   # this scenario now reads the security section it does not need. Bought two
   # turns for it, and the tokens are cache reads from the second turn onward.
-  max: {files: 6, tokens: 8792, round_trips: 3}
+  max: {files: 6, tokens: 8761, round_trips: 3}
   target: {files: 3, tokens: 6000, round_trips: 3}
 
 medium:
-  max: {files: 8, tokens: 13244, round_trips: 3}
+  max: {files: 8, tokens: 12992, round_trips: 3}
   target: {files: 5, tokens: 10000, round_trips: 3}
 
 large:
-  max: {files: 17, tokens: 25327, round_trips: 3}
+  # Back under the 25k compaction budget, with 71 tokens of headroom. Anything
+  # added to what this scenario loads has to earn its place against that.
+  max: {files: 17, tokens: 24929, round_trips: 3}
   target: {files: 8, tokens: 20000, round_trips: 3}

@@ -1,6 +1,6 @@
 # API Design
 
-Conventions for HTTP/REST APIs that stay predictable as they grow. Framework-agnostic: the same rules hold in NestJS, plain Node, Java, or Spring Boot.
+Conventions for HTTP/REST APIs that stay predictable as they grow. Framework-agnostic.
 
 ## Resource naming
 

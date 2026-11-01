@@ -1,6 +1,6 @@
 # Next.js
 
-Modern Next.js (v16+, App Router): Server Components by default, Server Functions, streaming, and the Cache Components model with `"use cache"`. The patterns below assume that baseline. Where a rule depends on a version, the version is called out. Always check the project's Next version and caching model before assuming a default.
+Modern Next.js (v16+, App Router): Server Components by default, Server Functions, streaming, and the Cache Components model with `"use cache"`. Version-gated rules are labelled; check the project's Next version and caching model first.
 
 ## Mental model
 
