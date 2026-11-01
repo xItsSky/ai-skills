@@ -290,8 +290,9 @@ Never commit directly to `main` or `develop`. Both change only through a
 reviewed merge. Short-lived branches are deleted after merge.
 
 Name them `feat/<desc>`, `fix/<desc>`, `chore/<desc>`, or `docs/<desc>`, with
-the description short, lowercase, and hyphenated. When the work ties to an issue
-the number is mandatory: `feat/#214-signup-rate-limit`.
+the description short, lowercase, and hyphenated. When the work ties to an
+issue, use `feat/#<issue>-<desc>`; the number is mandatory there:
+`feat/#214-signup-rate-limit`.
 
 ### Commit messages
 

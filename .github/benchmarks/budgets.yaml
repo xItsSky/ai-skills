@@ -1,5 +1,9 @@
 # Ceilings for what a skill invocation may cost before it writes any code.
 #
+# All four rose 9 tokens when the `feat/#<issue>-<desc>` branch pattern was
+# restored to baseline.md: the merge had kept the rule and an example but
+# dropped the template itself. Correctness outranks the ceiling.
+#
 # max    - a ratchet. Lower it as each optimization lands; raising one needs a
 #          reason in the pull request.
 # target - where the scenario should end up. Reported, never enforced.
@@ -17,21 +21,21 @@ small:
   # Tokens rose 291 when the four always-loaded files merged into baseline.md:
   # this scenario now reads the security section it does not need. Bought two
   # turns for it, and the tokens are cache reads from the second turn onward.
-  max: {files: 6, tokens: 8761, round_trips: 3}
+  max: {files: 6, tokens: 8770, round_trips: 3}
   target: {files: 3, tokens: 6000, round_trips: 3}
 
 medium:
-  max: {files: 8, tokens: 12992, round_trips: 3}
+  max: {files: 8, tokens: 13001, round_trips: 3}
   target: {files: 5, tokens: 10000, round_trips: 3}
 
 large:
-  # Back under the 25k compaction budget, with 71 tokens of headroom. Anything
+  # Back under the 25k compaction budget, with 62 tokens of headroom. Anything
   # added to what this scenario loads has to earn its place against that.
-  max: {files: 17, tokens: 24929, round_trips: 3}
+  max: {files: 17, tokens: 24938, round_trips: 3}
   target: {files: 8, tokens: 20000, round_trips: 3}
 
 trivial:
   # A mechanical rename. The real question is not this ceiling but whether the
   # skill loads at all; see the scenario file.
-  max: {files: 5, tokens: 7771, round_trips: 3}
+  max: {files: 5, tokens: 7780, round_trips: 3}
   target: {files: 0, tokens: 0, round_trips: 1}
