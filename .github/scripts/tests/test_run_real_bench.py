@@ -56,6 +56,39 @@ class SummarizeTests(unittest.TestCase):
         self.assertNotIn("cost_usd", BENCH.summarize([{"turns": 3}]))
 
 
+class SpreadTests(unittest.TestCase):
+    def test_spread_records_the_observed_range(self) -> None:
+        summary = BENCH.summarize([{"turns": 5}, {"turns": 9}, {"turns": 7}])
+        self.assertEqual(summary["turns_spread"], [5, 9])
+
+    def test_noise_floor_is_the_range_over_the_median(self) -> None:
+        summary = BENCH.summarize([{"turns": 5}, {"turns": 9}, {"turns": 10}])
+        # median 9, range 5, so the floor is 5/9 in percent
+        self.assertAlmostEqual(BENCH.noise_floor(summary, "turns"), 500 / 9, places=4)
+
+    def test_noise_floor_is_unknown_without_a_spread(self) -> None:
+        self.assertIsNone(BENCH.noise_floor({"turns": 5}, "turns"))
+
+    def test_noise_floor_is_unknown_without_a_median(self) -> None:
+        self.assertIsNone(BENCH.noise_floor({"turns": 0, "turns_spread": [0, 0]}, "turns"))
+
+    def test_a_delta_inside_the_spread_is_flagged_as_noise(self) -> None:
+        output = io.StringIO()
+        with redirect_stdout(output):
+            BENCH.report({"small": {"attempted": 3, "succeeded": 3, "turns": 20,
+                                    "turns_spread": [14, 26]}},
+                         {"small": {"turns": 21}})
+        self.assertIn("within noise", output.getvalue())
+
+    def test_a_delta_beyond_the_spread_is_not_flagged(self) -> None:
+        output = io.StringIO()
+        with redirect_stdout(output):
+            BENCH.report({"small": {"attempted": 3, "succeeded": 3, "turns": 10,
+                                    "turns_spread": [10, 10]}},
+                         {"small": {"turns": 20}})
+        self.assertNotIn("within noise", output.getvalue())
+
+
 class DeltaTests(unittest.TestCase):
     def test_delta_shows_absolute_and_relative_change(self) -> None:
         text = BENCH.format_delta("turns", {"turns": 5}, {"turns": 10})

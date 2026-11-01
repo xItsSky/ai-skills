@@ -82,6 +82,19 @@ The `num_turns` it reports is the measured counterpart to `unbatched`. The stati
 gate can only model what the instructions permit; this shows what the model
 actually did.
 
+### What this harness cannot see
+
+Under `claude -p` the model issues exactly one tool call per assistant message.
+That was checked three ways on the same scenario: with the batching instruction
+in the skill, with it forced into the prompt, and with no plugins loaded at all.
+Every condition gave a widest batch of one. Interactive sessions do batch, so
+this is a property of headless mode rather than of any instruction.
+
+The consequence for anyone reading these numbers: here, one file read costs one
+turn, so `files` is the metric that tracks latency, not `tokens`. Work that
+reduces how many files a scenario loads shows up. Work that only makes those
+files shorter mostly does not, however much context it saves.
+
 ### Why the scenario prompts forbid running anything
 
 Each task ends with an instruction not to install dependencies or run a build,
